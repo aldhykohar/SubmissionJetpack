@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SubmissionJetpack</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="movies">Movies</string>
+    <string name="tvshows">Tv Shows</string>
+    <string name="my_movie">My Movie</string>
+    <string name="u2022">•</string>
+    <string name="selengkapnya">Selengkapnya</string>
+    <string name="ringkasan">Ringkasan</string>
+    <string name="sembunyikan">Sembunyikan</string>
+</resources>

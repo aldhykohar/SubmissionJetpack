@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.aldhykohar.submissionjetpack.data.model.MoviesModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_8"
+        android:background="@drawable/background_white_ripple">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivMovies"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="@dimen/dimen_130"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="@dimen/dimen_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="@dimen/dimen_38"
+            android:layout_height="@dimen/dimen_38"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:background="@drawable/background_primary_circle_outline"
+            android:fontFamily="@font/nunito_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@{data.rate}"
+            android:textSize="@dimen/text_12"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMovies"
+            app:layout_constraintEnd_toEndOf="@+id/ivMovies"
+            app:layout_constraintStart_toEndOf="@+id/ivMovies"
+            tools:text="3.0" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:fontFamily="@font/nunito_bold"
+            android:includeFontPadding="false"
+            android:text="@{data.title}"
+            android:textColor="@color/colorGreyDark"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivMovies"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/movies" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:background="@drawable/background_primary_light_outline"
+            android:fontFamily="@font/nunito_reguler"
+            android:includeFontPadding="false"
+            android:padding="@dimen/dimen_4"
+            android:text="@{data.date}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintStart_toEndOf="@+id/ivMovies"
+            app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+            tools:text="@string/movies" />
+
+        <TextView
+            android:id="@+id/tvGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:fontFamily="@font/nunito_reguler"
+            android:includeFontPadding="false"
+            android:text="@{data.genre}"
+            android:textColor="@color/colorGreyMedium"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintStart_toEndOf="@+id/ivMovies"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            tools:text="@string/movies" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
