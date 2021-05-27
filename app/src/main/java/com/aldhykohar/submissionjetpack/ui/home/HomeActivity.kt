@@ -3,7 +3,9 @@ package com.aldhykohar.submissionjetpack.ui.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private val binding: ActivityHomeBinding by lazy {
