@@ -9,19 +9,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aldhykohar.submissionjetpack.data.model.MoviesModel
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
-import com.aldhykohar.submissionjetpack.ui.MoviesAdapter
-import com.aldhykohar.submissionjetpack.ui.detail.DetailActivity
-import com.aldhykohar.submissionjetpack.ui.listener.MoviesListener
+import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
+import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
+import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
+import dagger.hilt.android.AndroidEntryPoint
 
-class TvShowFragment : Fragment(), MoviesListener {
+@AndroidEntryPoint
+class TvShowFragment : Fragment(), TvShowsListener {
 
     private var from: String = TvShowFragment::class.java.name
 
 
     private val binding: FragmentTvshowBinding by lazy {
         FragmentTvshowBinding.inflate(layoutInflater)
+    }
+
+    private val tvShowsAdapter: TvShowAdapter by lazy {
+        TvShowAdapter(this)
     }
 
     private val viewModel: TvShowViewModel by viewModels()
@@ -37,18 +43,32 @@ class TvShowFragment : Fragment(), MoviesListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        observerViewModel()
+    }
+
+    private fun observerViewModel() {
+        viewModel.getTvShows().observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    setupShimmer(false)
+                    tvShowsAdapter.setTvShows(it.data?.results)
+                }
+                Status.LOADING -> {
+                    setupShimmer(true)
+                }
+                Status.ERROR -> {
+                    setupShimmer(false)
+                }
+            }
+        })
     }
 
     private fun setupUI() {
-        val moviesAdapter = MoviesAdapter(this)
-        setupShimmer(true)
-        moviesAdapter.setMovies(viewModel.getTvShow())
-        setupShimmer(false)
         with(binding) {
             rvTvShow.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                adapter = moviesAdapter
+                adapter = tvShowsAdapter
             }
         }
     }
@@ -67,10 +87,10 @@ class TvShowFragment : Fragment(), MoviesListener {
         }
     }
 
-    override fun onItemMoviesClicked(movies: MoviesModel) {
-        val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WHERE_FROM, from)
-        intent.putExtra(DetailActivity.EXTRA_MOVIES, movies.moviesId)
+    override fun onItemTvShowsClicked(tvShow: TvShowsItem) {
+        val intent = Intent(context, DetailMoviesActivity::class.java)
+        intent.putExtra(DetailMoviesActivity.WHERE_FROM, from)
+//        intent.putExtra(DetailActivity.EXTRA_MOVIES, movies.moviesId)
         context?.startActivity(intent)
     }
 }

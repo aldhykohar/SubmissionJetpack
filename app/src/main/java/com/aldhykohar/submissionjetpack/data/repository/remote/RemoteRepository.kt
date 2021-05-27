@@ -1,12 +1,10 @@
 package com.aldhykohar.submissionjetpack.data.repository.remote
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.Repository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.ResultsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import com.aldhykohar.submissionjetpack.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +26,6 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<MoviesResponse>,
                 response: Response<MoviesResponse>
             ) {
-                Log.e("Movie", "onResponse: ")
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {
@@ -38,12 +35,34 @@ constructor(private val apiService: ApiService) : Repository {
 
             override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                 data.postValue(Resource.error(t.message.toString(), null))
-                Log.e("Movie", "Error: " )
 
             }
         })
         return data
 
+    }
+
+    override suspend fun getTvShows(): MutableLiveData<Resource<TvShowsResponse>> {
+        val data = MutableLiveData<Resource<TvShowsResponse>>()
+        data.postValue(Resource.loading(null))
+        apiService.getTvShows().enqueue(object : Callback<TvShowsResponse> {
+            override fun onResponse(
+                call: Call<TvShowsResponse>,
+                response: Response<TvShowsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    data.postValue(Resource.success(response.body()))
+                } else {
+                    data.postValue(Resource.error(response.message().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
+                data.postValue(Resource.error(t.message.toString(), null))
+            }
+
+        })
+        return data
     }
 
 }

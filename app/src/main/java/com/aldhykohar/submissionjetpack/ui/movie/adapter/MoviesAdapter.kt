@@ -1,11 +1,13 @@
-package com.aldhykohar.submissionjetpack.ui
+package com.aldhykohar.submissionjetpack.ui.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aldhykohar.submissionjetpack.data.model.MoviesModel
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.ItemMoviesBinding
-import com.aldhykohar.submissionjetpack.ui.listener.MoviesListener
+import com.aldhykohar.submissionjetpack.ui.movie.MoviesListener
+import com.aldhykohar.submissionjetpack.utils.bindImage
 import com.squareup.picasso.Picasso
 
 
@@ -14,12 +16,12 @@ import com.squareup.picasso.Picasso
  */
 class MoviesAdapter(var listener: MoviesListener) :
     RecyclerView.Adapter<MoviesAdapter.ItemViewHolder>() {
-    private var listMovies = ArrayList<MoviesModel>()
+    private var listMovies = ArrayList<MoviesItem>()
 
-    fun setMovies(courses: List<MoviesModel>?) {
-        if (courses == null) return
+    fun setMovies(movies: List<MoviesItem>?) {
+        if (movies == null) return
         this.listMovies.clear()
-        this.listMovies.addAll(courses)
+        this.listMovies.addAll(movies)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -39,13 +41,11 @@ class MoviesAdapter(var listener: MoviesListener) :
 
     inner class ItemViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies: MoviesModel) {
+        fun bind(movies: MoviesItem) {
             with(binding) {
                 data = movies
 
-                Picasso.get()
-                    .load(movies.imgPath)
-                    .into(ivMovies)
+                bindImage(ivMovies,movies.posterPath)
 
                 itemView.setOnClickListener {
                     listener.onItemMoviesClicked(movies)

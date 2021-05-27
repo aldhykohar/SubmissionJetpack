@@ -3,6 +3,7 @@ package com.aldhykohar.submissionjetpack.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import com.aldhykohar.submissionjetpack.utils.Resource
 
 
@@ -11,4 +12,6 @@ import com.aldhykohar.submissionjetpack.utils.Resource
  */
 interface Repository {
     suspend fun getMovies(): MutableLiveData<Resource<MoviesResponse>>
+
+    suspend fun getTvShows(): MutableLiveData<Resource<TvShowsResponse>>
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem" />
+            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem" />
 
     </data>
 
@@ -23,9 +23,9 @@
             android:layout_height="@dimen/dimen_130"
             android:contentDescription="@string/app_name"
             android:scaleType="fitXY"
-            app:riv_corner_radius="@dimen/dimen_8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/dimen_8" />
 
         <TextView
             android:layout_width="@dimen/dimen_38"
@@ -36,8 +36,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@{String.valueOf(data.voteAverage)}"
-            android:textSize="@dimen/text_12"
             android:textColor="@color/white"
+            android:textSize="@dimen/text_12"
             app:layout_constraintBottom_toBottomOf="@+id/ivMovies"
             app:layout_constraintEnd_toEndOf="@+id/ivMovies"
             app:layout_constraintStart_toEndOf="@+id/ivMovies"
@@ -51,7 +51,7 @@
             android:layout_marginEnd="@dimen/dimen_16"
             android:fontFamily="@font/nunito_bold"
             android:includeFontPadding="false"
-            android:text="@{data.title}"
+            android:text="@{data.name}"
             android:textColor="@color/colorGreyDark"
             android:textSize="@dimen/text_16"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
             android:fontFamily="@font/nunito_reguler"
             android:includeFontPadding="false"
             android:padding="@dimen/dimen_4"
-            android:text="@{data.releaseDate}"
+            android:text="@{data.firstAirDate}"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_12"
             app:layout_constraintStart_toEndOf="@+id/ivMovies"
@@ -84,7 +84,7 @@
             android:layout_marginTop="@dimen/dimen_4"
             android:fontFamily="@font/nunito_reguler"
             android:includeFontPadding="false"
-            android:text="@{data.title}"
+            android:text="@{data.name}"
             android:textColor="@color/colorGreyMedium"
             android:textSize="@dimen/text_12"
             app:layout_constraintStart_toEndOf="@+id/ivMovies"

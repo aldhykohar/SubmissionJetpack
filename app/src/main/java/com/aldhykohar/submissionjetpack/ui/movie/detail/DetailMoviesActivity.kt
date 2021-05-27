@@ -1,4 +1,4 @@
-package com.aldhykohar.submissionjetpack.ui.detail
+package com.aldhykohar.submissionjetpack.ui.movie.detail
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,22 +7,22 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
 import com.aldhykohar.submissionjetpack.data.model.MoviesModel
-import com.aldhykohar.submissionjetpack.databinding.ActivityDetailBinding
+import com.aldhykohar.submissionjetpack.databinding.ActivityDetailMoviesBinding
 import com.aldhykohar.submissionjetpack.ui.movie.MovieFragment
 import com.squareup.picasso.Picasso
 
-class DetailActivity : AppCompatActivity() {
+class DetailMoviesActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_MOVIES = "extra_movies"
         const val WHERE_FROM = "where_from"
     }
 
-    private val binding: ActivityDetailBinding by lazy {
-        ActivityDetailBinding.inflate(layoutInflater)
+    private val binding: ActivityDetailMoviesBinding by lazy {
+        ActivityDetailMoviesBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: DetailsViewModel by viewModels()
+    private val viewModel: DetailMoviesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

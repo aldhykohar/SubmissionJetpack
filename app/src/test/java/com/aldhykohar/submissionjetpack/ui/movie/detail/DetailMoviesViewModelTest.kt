@@ -1,17 +1,16 @@
-package com.aldhykohar.submissionjetpack.ui.detail
+package com.aldhykohar.submissionjetpack.ui.movie.detail
 
 import com.aldhykohar.submissionjetpack.utils.DataDummy
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 /**
- * Created by aldhykohar on 5/17/2021.
+ * Created by aldhykohar on 5/27/2021.
  */
-class DetailsViewModelTest {
+class DetailMoviesViewModelTest {
 
-    private lateinit var viewModel: DetailsViewModel
+    private lateinit var viewModel: DetailMoviesViewModel
     private val dummyMovies = DataDummy.generateDummyMovie()[0]
     private val dummyTvShow = DataDummy.generateDummyTvShow()[0]
     private val movieId = dummyMovies.moviesId
@@ -19,7 +18,7 @@ class DetailsViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = DetailsViewModel()
+        viewModel = DetailMoviesViewModel()
     }
 
     @Test
