@@ -1,23 +1,24 @@
-package com.aldhykohar.submissionjetpack.ui.movie.detail
+package com.aldhykohar.submissionjetpack.ui.tvshow.detail
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
-import com.aldhykohar.submissionjetpack.databinding.ActivityDetailMoviesBinding
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.databinding.ActivityDetailTvShowBinding
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
 
-class DetailMoviesActivity : AppCompatActivity() {
+class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_MOVIES = "extra_movies"
+        const val EXTRA_TV_SHOW = "extra_tv_show"
         const val GENRE = "genre"
     }
 
-    private val binding: ActivityDetailMoviesBinding by lazy {
-        ActivityDetailMoviesBinding.inflate(layoutInflater)
+    private val binding: ActivityDetailTvShowBinding by lazy {
+        ActivityDetailTvShowBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +57,7 @@ class DetailMoviesActivity : AppCompatActivity() {
         setupShimmer(true)
 
         val genres = intent.getStringExtra(GENRE)
-        val data: MoviesItem? = intent.getParcelableExtra(EXTRA_MOVIES)
+        val data: TvShowsItem? = intent.getParcelableExtra(EXTRA_TV_SHOW)
         if (data != null) {
             setupShimmer(false)
             with(binding) {

@@ -3,12 +3,12 @@ package com.aldhykohar.submissionjetpack.ui.movie.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aldhykohar.submissionjetpack.data.model.MoviesModel
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.ItemMoviesBinding
 import com.aldhykohar.submissionjetpack.ui.movie.MoviesListener
-import com.aldhykohar.submissionjetpack.utils.bindImage
-import com.squareup.picasso.Picasso
+import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
+import com.aldhykohar.submissionjetpack.utils.CommonUtils.getGenreMovies
 
 
 /**
@@ -17,6 +17,13 @@ import com.squareup.picasso.Picasso
 class MoviesAdapter(var listener: MoviesListener) :
     RecyclerView.Adapter<MoviesAdapter.ItemViewHolder>() {
     private var listMovies = ArrayList<MoviesItem>()
+    private var listGenre = ArrayList<GenresItem>()
+
+    fun setGenres(genres: List<GenresItem>?) {
+        if (genres == null) return
+        this.listGenre.clear()
+        this.listGenre.addAll(genres)
+    }
 
     fun setMovies(movies: List<MoviesItem>?) {
         if (movies == null) return
@@ -43,12 +50,14 @@ class MoviesAdapter(var listener: MoviesListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movies: MoviesItem) {
             with(binding) {
+                val genres = getGenreMovies(listGenre, movies)
                 data = movies
+                genre = genres
 
-                bindImage(ivMovies,movies.posterPath)
+                bindImage(ivMovies, movies.posterPath)
 
                 itemView.setOnClickListener {
-                    listener.onItemMoviesClicked(movies)
+                    listener.onItemMoviesClicked(movies, genres)
                 }
             }
         }

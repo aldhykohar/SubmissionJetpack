@@ -2,7 +2,6 @@ package com.aldhykohar.submissionjetpack.ui.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -16,6 +15,7 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesIt
 import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
+import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
 import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,20 +52,30 @@ class MovieFragment : Fragment(), MoviesListener {
     }
 
     private fun observerViewModel() {
+        viewModel.getGenreMovies().observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    moviesAdapter.setGenres(it.data?.genres)
+                }
+                Status.LOADING -> {
+                }
+                Status.ERROR -> {
+                    context?.showToast(it.message.toString())
+                }
+            }
+        })
         viewModel.getMovies().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     setupShimmer(false)
                     moviesAdapter.setMovies(it.data?.results)
-//                    Log.e("Movie", "${it.data}")
                 }
                 Status.LOADING -> {
                     setupShimmer(true)
                 }
                 Status.ERROR -> {
                     setupShimmer(false)
-
-                    Log.e("Movie", "${it.message}")
+                    context?.showToast(it.message.toString())
                 }
             }
         })
@@ -95,10 +105,10 @@ class MovieFragment : Fragment(), MoviesListener {
         }
     }
 
-    override fun onItemMoviesClicked(movies: MoviesItem) {
+    override fun onItemMoviesClicked(movies: MoviesItem, genre: String) {
         val intent = Intent(context, DetailMoviesActivity::class.java)
-        intent.putExtra(DetailMoviesActivity.WHERE_FROM, from)
-//        intent.putExtra(DetailActivity.EXTRA_MOVIES, movies.moviesId)
+        intent.putExtra(DetailMoviesActivity.EXTRA_MOVIES, movies)
+        intent.putExtra(DetailMoviesActivity.GENRE, genre)
         context?.startActivity(intent)
     }
 }

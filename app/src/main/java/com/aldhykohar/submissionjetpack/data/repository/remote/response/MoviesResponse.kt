@@ -1,6 +1,8 @@
 package com.aldhykohar.submissionjetpack.data.repository.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 
 data class MoviesResponse(
@@ -17,6 +19,7 @@ data class MoviesResponse(
     val totalResults: Int
 )
 
+@Parcelize
 data class MoviesItem(
     @field:SerializedName("overview")
     val overview: String,
@@ -59,5 +62,5 @@ data class MoviesItem(
 
     @field:SerializedName("vote_count")
     val voteCount: Int
-)
+) : Parcelable
 

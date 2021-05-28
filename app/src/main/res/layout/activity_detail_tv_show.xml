@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem" />
+            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem" />
 
         <variable
             name="genre"
@@ -96,7 +96,7 @@
                     android:fontFamily="@font/nunito_bold"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="@{model.title}"
+                    android:text="@{model.name}"
                     android:textColor="@color/colorGreyDark"
                     android:textSize="@dimen/text_16"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +130,7 @@
                     android:fontFamily="@font/nunito_reguler"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="@{model.releaseDate}"
+                    android:text="@{model.firstAirDate}"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_12"
                     app:layout_constraintEnd_toEndOf="@id/tvTitle"

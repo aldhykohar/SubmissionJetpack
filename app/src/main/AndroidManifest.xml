@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SubmissionJetpack">
         <activity android:name="com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity" />
+        <activity android:name="com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:label="@string/title_activity_home" />

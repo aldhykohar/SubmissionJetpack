@@ -11,16 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
-import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
 import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
+import com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity
+import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
 import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TvShowFragment : Fragment(), TvShowsListener {
-
-    private var from: String = TvShowFragment::class.java.name
-
 
     private val binding: FragmentTvshowBinding by lazy {
         FragmentTvshowBinding.inflate(layoutInflater)
@@ -47,6 +45,18 @@ class TvShowFragment : Fragment(), TvShowsListener {
     }
 
     private fun observerViewModel() {
+        viewModel.getGenreTvShow().observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    tvShowsAdapter.setGenres(it.data?.genres)
+                }
+                Status.LOADING -> {
+                }
+                Status.ERROR -> {
+                    context?.showToast(it.message.toString())
+                }
+            }
+        })
         viewModel.getTvShows().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -58,6 +68,7 @@ class TvShowFragment : Fragment(), TvShowsListener {
                 }
                 Status.ERROR -> {
                     setupShimmer(false)
+                    context?.showToast(it.message.toString())
                 }
             }
         })
@@ -87,10 +98,10 @@ class TvShowFragment : Fragment(), TvShowsListener {
         }
     }
 
-    override fun onItemTvShowsClicked(tvShow: TvShowsItem) {
-        val intent = Intent(context, DetailMoviesActivity::class.java)
-        intent.putExtra(DetailMoviesActivity.WHERE_FROM, from)
-//        intent.putExtra(DetailActivity.EXTRA_MOVIES, movies.moviesId)
+    override fun onItemTvShowsClicked(tvShow: TvShowsItem, genre: String) {
+        val intent = Intent(context, DetailTvShowActivity::class.java)
+        intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow)
+        intent.putExtra(DetailTvShowActivity.GENRE, genre)
         context?.startActivity(intent)
     }
 }

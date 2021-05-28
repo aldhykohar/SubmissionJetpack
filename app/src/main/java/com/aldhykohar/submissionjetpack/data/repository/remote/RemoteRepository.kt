@@ -3,6 +3,7 @@ package com.aldhykohar.submissionjetpack.data.repository.remote
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.Repository
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import com.aldhykohar.submissionjetpack.utils.Resource
@@ -39,7 +40,29 @@ constructor(private val apiService: ApiService) : Repository {
             }
         })
         return data
+    }
 
+    override suspend fun getGenreMovies(): MutableLiveData<Resource<GenreResponse>> {
+        val data = MutableLiveData<Resource<GenreResponse>>()
+        data.postValue(Resource.loading(null))
+        apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
+            override fun onResponse(
+                call: Call<GenreResponse>,
+                response: Response<GenreResponse>
+            ) {
+                if (response.isSuccessful) {
+                    data.postValue(Resource.success(response.body()))
+                } else {
+                    data.postValue(Resource.error(response.message().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
+                data.postValue(Resource.error(t.message.toString(), null))
+
+            }
+        })
+        return data
     }
 
     override suspend fun getTvShows(): MutableLiveData<Resource<TvShowsResponse>> {
@@ -64,5 +87,29 @@ constructor(private val apiService: ApiService) : Repository {
         })
         return data
     }
+
+    override suspend fun getGenreTvShow(): MutableLiveData<Resource<GenreResponse>> {
+        val data = MutableLiveData<Resource<GenreResponse>>()
+        data.postValue(Resource.loading(null))
+        apiService.getGenreTvShow().enqueue(object : Callback<GenreResponse> {
+            override fun onResponse(
+                call: Call<GenreResponse>,
+                response: Response<GenreResponse>
+            ) {
+                if (response.isSuccessful) {
+                    data.postValue(Resource.success(response.body()))
+                } else {
+                    data.postValue(Resource.error(response.message().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
+                data.postValue(Resource.error(t.message.toString(), null))
+
+            }
+        })
+        return data
+    }
+
 
 }

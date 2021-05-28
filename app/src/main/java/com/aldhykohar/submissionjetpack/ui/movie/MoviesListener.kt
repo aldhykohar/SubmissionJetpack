@@ -8,5 +8,5 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesIt
  * Created by aldhykohar on 5/17/2021.
  */
 interface MoviesListener {
-    fun onItemMoviesClicked(movies: MoviesItem)
+    fun onItemMoviesClicked(movies: MoviesItem, genre: String)
 }

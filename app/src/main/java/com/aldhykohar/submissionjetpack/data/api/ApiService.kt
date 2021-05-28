@@ -1,5 +1,6 @@
 package com.aldhykohar.submissionjetpack.data.api
 
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import retrofit2.Call
@@ -14,7 +15,15 @@ interface ApiService {
     fun getMovies(
     ): Call<MoviesResponse>
 
+    @GET("genre/movie/list")
+    fun getGenreMovies(
+    ): Call<GenreResponse>
+
     @GET("tv/popular")
     fun getTvShows(
     ): Call<TvShowsResponse>
+
+    @GET("genre/tv/list")
+    fun getGenreTvShow(
+    ): Call<GenreResponse>
 }

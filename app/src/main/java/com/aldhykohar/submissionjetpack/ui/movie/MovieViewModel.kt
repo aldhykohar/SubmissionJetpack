@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldhykohar.submissionjetpack.data.model.MoviesModel
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
-import com.aldhykohar.submissionjetpack.data.repository.Repository
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.aldhykohar.submissionjetpack.utils.Resource
@@ -21,6 +21,15 @@ class MovieViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
     fun getMovie(): List<MoviesModel> = DataDummy.generateDummyMovie()
+
+
+    fun getGenreMovies(): LiveData<Resource<GenreResponse>> {
+        var data = MutableLiveData<Resource<GenreResponse>>()
+        viewModelScope.launch {
+            data = repository.getGenreMovies()
+        }
+        return data
+    }
 
     fun getMovies(): LiveData<Resource<MoviesResponse>> {
         var data = MutableLiveData<Resource<MoviesResponse>>()

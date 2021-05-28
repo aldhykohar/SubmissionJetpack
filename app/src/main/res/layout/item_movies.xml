@@ -9,6 +9,10 @@
             name="data"
             type="com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem" />
 
+        <variable
+            name="genre"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +27,9 @@
             android:layout_height="@dimen/dimen_130"
             android:contentDescription="@string/app_name"
             android:scaleType="fitXY"
-            app:riv_corner_radius="@dimen/dimen_8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/dimen_8" />
 
         <TextView
             android:layout_width="@dimen/dimen_38"
@@ -36,8 +40,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@{String.valueOf(data.voteAverage)}"
-            android:textSize="@dimen/text_12"
             android:textColor="@color/white"
+            android:textSize="@dimen/text_12"
             app:layout_constraintBottom_toBottomOf="@+id/ivMovies"
             app:layout_constraintEnd_toEndOf="@+id/ivMovies"
             app:layout_constraintStart_toEndOf="@+id/ivMovies"
@@ -84,7 +88,7 @@
             android:layout_marginTop="@dimen/dimen_4"
             android:fontFamily="@font/nunito_reguler"
             android:includeFontPadding="false"
-            android:text="@{data.title}"
+            android:text="@{genre}"
             android:textColor="@color/colorGreyMedium"
             android:textSize="@dimen/text_12"
             app:layout_constraintStart_toEndOf="@+id/ivMovies"
