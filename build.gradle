@@ -45,6 +45,6 @@ ext{
     okhttp3Version = '4.9.0'
     mockitoKotlinVersion = '2.2.0'
     androidCoreTestVersion = '2.1.0'
-
+    idleResourceVersion = '3.2.0'
 
 }

@@ -6,6 +6,7 @@ import com.aldhykohar.submissionjetpack.data.repository.Repository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
+import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
 import com.aldhykohar.submissionjetpack.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +21,7 @@ class RemoteRepository
 @Inject
 constructor(private val apiService: ApiService) : Repository {
     override suspend fun getMovies(): MutableLiveData<Resource<MoviesResponse>> {
+        EspressoIdlingResource.increment()
         val data = MutableLiveData<Resource<MoviesResponse>>()
         data.postValue(Resource.loading(null))
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
@@ -27,6 +29,7 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<MoviesResponse>,
                 response: Response<MoviesResponse>
             ) {
+                EspressoIdlingResource.decrement()
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {
@@ -43,6 +46,7 @@ constructor(private val apiService: ApiService) : Repository {
     }
 
     override suspend fun getGenreMovies(): MutableLiveData<Resource<GenreResponse>> {
+        EspressoIdlingResource.increment()
         val data = MutableLiveData<Resource<GenreResponse>>()
         data.postValue(Resource.loading(null))
         apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
@@ -50,6 +54,7 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<GenreResponse>,
                 response: Response<GenreResponse>
             ) {
+                EspressoIdlingResource.decrement()
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {
@@ -66,6 +71,7 @@ constructor(private val apiService: ApiService) : Repository {
     }
 
     override suspend fun getTvShows(): MutableLiveData<Resource<TvShowsResponse>> {
+        EspressoIdlingResource.increment()
         val data = MutableLiveData<Resource<TvShowsResponse>>()
         data.postValue(Resource.loading(null))
         apiService.getTvShows().enqueue(object : Callback<TvShowsResponse> {
@@ -73,6 +79,7 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<TvShowsResponse>,
                 response: Response<TvShowsResponse>
             ) {
+                EspressoIdlingResource.decrement()
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {
@@ -89,6 +96,7 @@ constructor(private val apiService: ApiService) : Repository {
     }
 
     override suspend fun getGenreTvShow(): MutableLiveData<Resource<GenreResponse>> {
+        EspressoIdlingResource.increment()
         val data = MutableLiveData<Resource<GenreResponse>>()
         data.postValue(Resource.loading(null))
         apiService.getGenreTvShow().enqueue(object : Callback<GenreResponse> {
@@ -96,6 +104,7 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<GenreResponse>,
                 response: Response<GenreResponse>
             ) {
+                EspressoIdlingResource.decrement()
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {

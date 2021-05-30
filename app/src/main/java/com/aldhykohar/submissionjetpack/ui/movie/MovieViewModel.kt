@@ -20,8 +20,6 @@ import kotlinx.coroutines.launch
 class MovieViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
-    fun getMovie(): List<MoviesModel> = DataDummy.generateDummyMovie()
-
 
     fun getGenreMovies(): LiveData<Resource<GenreResponse>> {
         var data = MutableLiveData<Resource<GenreResponse>>()

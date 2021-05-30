@@ -27,5 +27,4 @@ constructor(private val remoteRepository: RemoteRepository) : Repository {
     override suspend fun getGenreTvShow(): MutableLiveData<Resource<GenreResponse>> =
         remoteRepository.getGenreTvShow()
 
-
 }

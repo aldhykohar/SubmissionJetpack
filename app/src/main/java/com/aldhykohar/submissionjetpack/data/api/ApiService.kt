@@ -26,4 +26,5 @@ interface ApiService {
     @GET("genre/tv/list")
     fun getGenreTvShow(
     ): Call<GenreResponse>
+
 }

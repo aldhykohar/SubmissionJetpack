@@ -2,11 +2,11 @@ package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aldhykohar.submissionjetpack.data.FakeRemoteRepository
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
