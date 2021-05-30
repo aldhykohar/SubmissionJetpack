@@ -1,4 +1,4 @@
-package com.merchantmalltronik.malltronik.malltronikkurir.utils
+package com.aldhykohar.submissionjetpack.utils
 
 enum class Status {
     SUCCESS,

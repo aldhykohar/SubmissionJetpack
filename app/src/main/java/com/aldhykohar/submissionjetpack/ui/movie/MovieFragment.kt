@@ -16,7 +16,7 @@ import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
-import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
+import com.aldhykohar.submissionjetpack.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

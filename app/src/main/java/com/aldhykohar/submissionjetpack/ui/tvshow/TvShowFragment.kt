@@ -14,7 +14,7 @@ import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
 import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
 import com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
-import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
+import com.aldhykohar.submissionjetpack.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,7 +1,5 @@
 package com.aldhykohar.submissionjetpack.utils
 
-import com.merchantmalltronik.malltronik.malltronikkurir.utils.Status
-
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 
     companion object {

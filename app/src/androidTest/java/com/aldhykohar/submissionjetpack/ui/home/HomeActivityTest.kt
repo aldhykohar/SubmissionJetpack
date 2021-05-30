@@ -9,15 +9,21 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.aldhykohar.submissionjetpack.R
 import com.aldhykohar.submissionjetpack.utils.DataDummy
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
 
 /**
  * Created by aldhykohar on 5/18/2021.
  */
+@HiltAndroidTest
 class HomeActivityTest {
     private val dummyMovie = DataDummy.generateDummyMovie()
     private val dummyTvShow = DataDummy.generateDummyTvShow()
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @get:Rule
     var activityRule = ActivityScenarioRule(HomeActivity::class.java)
@@ -48,10 +54,6 @@ class HomeActivityTest {
         onView(withId(R.id.tvDesc)).check(matches(withText(dummyMovie[0].desc)))
         onView(withId(R.id.tvRate)).check(matches(isDisplayed()))
         onView(withId(R.id.tvRate)).check(matches(withText(dummyMovie[0].rate)))
-        onView(withId(R.id.tvCountry)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvCountry)).check(matches(withText(dummyMovie[0].country)))
-        onView(withId(R.id.tvDuration)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDuration)).check(matches(withText(dummyMovie[0].duration)))
         onView(withId(R.id.ivMovies)).check(matches(isDisplayed()))
         onView(withId(R.id.ivImgBackground)).check(matches(isDisplayed()))
         onView(withId(R.id.tvReadMore)).perform(click())
@@ -72,10 +74,6 @@ class HomeActivityTest {
         onView(withId(R.id.tvDesc)).check(matches(withText(dummyTvShow[0].desc)))
         onView(withId(R.id.tvRate)).check(matches(isDisplayed()))
         onView(withId(R.id.tvRate)).check(matches(withText(dummyTvShow[0].rate)))
-        onView(withId(R.id.tvCountry)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvCountry)).check(matches(withText(dummyTvShow[0].country)))
-        onView(withId(R.id.tvDuration)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDuration)).check(matches(withText(dummyTvShow[0].duration)))
         onView(withId(R.id.ivMovies)).check(matches(isDisplayed()))
         onView(withId(R.id.ivImgBackground)).check(matches(isDisplayed()))
         onView(withId(R.id.tvReadMore)).perform(click())

@@ -43,4 +43,8 @@ ext{
     daggerHiltCompilerVersion = '1.0.0'
     retrofitVersion = '2.9.0'
     okhttp3Version = '4.9.0'
+    mockitoKotlinVersion = '2.2.0'
+    androidCoreTestVersion = '2.1.0'
+
+
 }
