@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldhykohar.submissionjetpack.data.model.MoviesModel
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
-import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.aldhykohar.submissionjetpack.utils.Resource
 import kotlinx.coroutines.launch
 
