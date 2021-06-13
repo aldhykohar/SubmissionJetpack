@@ -10,6 +10,7 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreRes
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
+import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
 import com.aldhykohar.submissionjetpack.utils.Resource
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -69,4 +70,26 @@ class FakeRemoteRepository {
 
     fun getGenreTvShow(): Call<GenreResponse> = apiService.getGenreTvShow()
 
+    fun getMovies2(): MutableLiveData<Resource<MoviesResponse>> {
+        val data = MutableLiveData<Resource<MoviesResponse>>()
+        data.postValue(Resource.loading(null))
+        apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
+            override fun onResponse(
+                call: Call<MoviesResponse>,
+                response: Response<MoviesResponse>
+            ) {
+                if (response.isSuccessful) {
+                    data.postValue(Resource.success(response.body()))
+                } else {
+                    data.postValue(Resource.error(response.message().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
+                data.postValue(Resource.error(t.message.toString(), null))
+
+            }
+        })
+        return data
+    }
 }

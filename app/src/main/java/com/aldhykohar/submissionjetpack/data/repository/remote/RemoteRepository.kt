@@ -21,7 +21,6 @@ class RemoteRepository
 @Inject
 constructor(private val apiService: ApiService) : Repository {
     override suspend fun getMovies(): MutableLiveData<Resource<MoviesResponse>> {
-        EspressoIdlingResource.increment()
         val data = MutableLiveData<Resource<MoviesResponse>>()
         data.postValue(Resource.loading(null))
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
@@ -29,7 +28,6 @@ constructor(private val apiService: ApiService) : Repository {
                 call: Call<MoviesResponse>,
                 response: Response<MoviesResponse>
             ) {
-                EspressoIdlingResource.decrement()
                 if (response.isSuccessful) {
                     data.postValue(Resource.success(response.body()))
                 } else {

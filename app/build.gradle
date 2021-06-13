@@ -98,4 +98,9 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp3Version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
     implementation "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
+
+    //For runBlockingTest, CoroutineDispatcher etc.
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
+    //For InstantTaskExecutorRule
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 }
