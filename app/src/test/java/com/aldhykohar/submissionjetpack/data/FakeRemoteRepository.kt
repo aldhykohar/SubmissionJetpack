@@ -72,7 +72,7 @@ class FakeRemoteRepository {
 
     fun getMovies2(): MutableLiveData<Resource<MoviesResponse>> {
         val data = MutableLiveData<Resource<MoviesResponse>>()
-        data.postValue(Resource.loading(null))
+//        data.postValue(Resource.loading(null))
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
             override fun onResponse(
                 call: Call<MoviesResponse>,
