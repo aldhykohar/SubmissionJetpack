@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import com.aldhykohar.submissionjetpack.utils.Resource
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 
 /**
@@ -19,19 +22,7 @@ class MovieViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
 
-    fun getGenreMovies(): LiveData<Resource<GenreResponse>> {
-        var data = MutableLiveData<Resource<GenreResponse>>()
-        viewModelScope.launch {
-            data = repository.getGenreMovies()
-        }
-        return data
-    }
+    fun getMovies() = repository.getMovies()
+    fun getMoviesGenre() = repository.getGenreMovies()
 
-    fun getMovies(): LiveData<Resource<MoviesResponse>> {
-        var data = MutableLiveData<Resource<MoviesResponse>>()
-        viewModelScope.launch {
-            data = repository.getMovies()
-        }
-        return data
-    }
 }

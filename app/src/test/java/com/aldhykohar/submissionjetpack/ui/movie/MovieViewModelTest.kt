@@ -2,138 +2,77 @@ package com.aldhykohar.submissionjetpack.ui.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.aldhykohar.submissionjetpack.BuildConfig
-import com.aldhykohar.submissionjetpack.MainCoroutineRule
-import com.aldhykohar.submissionjetpack.data.FakeRemoteRepository
-import com.aldhykohar.submissionjetpack.data.api.ApiService
-import com.aldhykohar.submissionjetpack.data.model.MoviesModel
+import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
-import com.aldhykohar.submissionjetpack.utils.Resource
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.utils.DataDummy
+import com.nhaarman.mockitokotlin2.verify
+import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertNotNull
+import org.junit.Test
+
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnit
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-
 
 /**
- * Created by aldhykohar on 6/5/2021.
+ * Created by aldhykohar on 6/17/2021.
  */
-
-@ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner.Silent::class)
+@RunWith(MockitoJUnitRunner::class)
 class MovieViewModelTest {
-
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: MovieViewModel
 
-    @Mock
-    private lateinit var fakeRemoteRepository: FakeRemoteRepository
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var dataRepository: DataRepository
 
     @Mock
-    private lateinit var remoteRepository: RemoteRepository
-
-    private lateinit var apiService: ApiService
+    private lateinit var observerMovie: Observer<List<MoviesItem>>
 
     @Mock
-    var service: ApiService? = null
-
-    @InjectMocks
-    var repository: DataRepository? = null
-
-    private fun providesApiKey(): Interceptor = object : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-            var request: Request = chain.request()
-            val url: HttpUrl = request.url.newBuilder()
-                .addQueryParameter("api_key", BuildConfig.API_KEY)
-                .build()
-            request = request.newBuilder().url(url).build()
-            return chain.proceed(request)
-        }
-    }
-
-    private fun provideOkHttpClient(
-        apiKey: Interceptor
-    ): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        return OkHttpClient.Builder().apply {
-            readTimeout(30, TimeUnit.SECONDS)
-            writeTimeout(30, TimeUnit.SECONDS)
-        }.addInterceptor(loggingInterceptor).addInterceptor(apiKey).build()
-    }
-
-    private fun provideRetrofit(
-    ): Retrofit =
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(provideOkHttpClient(providesApiKey()))
-            .build()
-
+    private lateinit var observerGenre: Observer<List<GenresItem>>
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this);
-        apiService = provideRetrofit().create(ApiService::class.java)
-        fakeRemoteRepository = FakeRemoteRepository()
-        remoteRepository = RemoteRepository(apiService)
-        dataRepository = DataRepository(remoteRepository)
         viewModel = MovieViewModel(dataRepository)
     }
 
     @Test
-    fun getGenreMovies() {
+    fun getMovies() {
+        val dummyMovies = DataDummy.generateDummyMovies()
+        val movies = MutableLiveData<List<MoviesItem>>()
+        movies.value = dummyMovies
 
+        `when`(dataRepository.getMovies()).thenReturn(movies)
+        val movie = viewModel.getMovies().value
+        verify(dataRepository).getMovies()
+        assertNotNull(movie)
+        assertEquals(1, movie?.size)
+
+        viewModel.getMovies().observeForever(observerMovie)
+        verify(observerMovie).onChanged(dummyMovies)
     }
 
-    @ExperimentalCoroutinesApi
     @Test
-    fun getMovies() = runBlockingTest {
-        val response = fakeRemoteRepository.getMovies2()
+    fun getMoviesGenre() {
+        val dummyGenre = DataDummy.generateDummyGenreMovies()
+        val genres = MutableLiveData<List<GenresItem>>()
+        genres.value = dummyGenre
 
+        `when`(dataRepository.getGenreMovies()).thenReturn(genres)
+        val genre = viewModel.getMoviesGenre().value
+        verify(dataRepository).getGenreMovies()
+        assertNotNull(genre)
+        assertEquals(1, genre?.size)
 
-        val mock: MutableLiveData<Resource<MoviesModel>> =
-            mock(MutableLiveData<Resource<MoviesModel>>()::class.java)
-//        `when`(remoteRepository.getMovies()).thenReturn(response)
-//        verify(remoteRepository).getMovies()
-//        print(response.value?.data)
-//        print(remoteRepository.getMovies().value?.data)
-//        verify(response).postValue(mock)
-
-        `when`(fakeRemoteRepository.getMovies2()).thenReturn(mock)
-        println("Hasil  : " + fakeRemoteRepository.getGenreMovies())
-        println("Hasil  : " + response.value)
-        println("Hasil  : " + mock)
-
+        viewModel.getMoviesGenre().observeForever(observerGenre)
+        verify(observerGenre).onChanged(dummyGenre)
     }
 }

@@ -18,20 +18,7 @@ import kotlinx.coroutines.launch
 class TvShowViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
+    fun getTvShows() = repository.getTvShows()
+    fun getTvShowGenre() = repository.getGenreTvShow()
 
-    fun getTvShows(): LiveData<Resource<TvShowsResponse>> {
-        var data = MutableLiveData<Resource<TvShowsResponse>>()
-        viewModelScope.launch {
-            data = repository.getTvShows()
-        }
-        return data
-    }
-
-    fun getGenreTvShow(): LiveData<Resource<GenreResponse>> {
-        var data = MutableLiveData<Resource<GenreResponse>>()
-        viewModelScope.launch {
-            data = repository.getGenreTvShow()
-        }
-        return data
-    }
 }

@@ -41,11 +41,12 @@ class TvShowFragment : Fragment(), TvShowsListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        setupShimmer(true)
         observerViewModel()
     }
 
     private fun observerViewModel() {
-        viewModel.getGenreTvShow().observe(viewLifecycleOwner, {
+        /*viewModel.getGenreTvShow().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     tvShowsAdapter.setGenres(it.data?.genres)
@@ -71,6 +72,15 @@ class TvShowFragment : Fragment(), TvShowsListener {
                     context?.showToast(it.message.toString())
                 }
             }
+        })*/
+
+        viewModel.getTvShows().observe(viewLifecycleOwner, { movies ->
+            setupShimmer(false)
+            tvShowsAdapter.setTvShows(movies)
+        })
+
+        viewModel.getTvShowGenre().observe(viewLifecycleOwner, { genres ->
+            tvShowsAdapter.setGenres(genres)
         })
     }
 

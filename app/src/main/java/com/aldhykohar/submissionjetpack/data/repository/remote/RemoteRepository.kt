@@ -1,11 +1,11 @@
 package com.aldhykohar.submissionjetpack.data.repository.remote
 
+import android.graphics.Movie
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.Repository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
 import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
 import com.aldhykohar.submissionjetpack.utils.Resource
 import retrofit2.Call
@@ -19,104 +19,85 @@ import javax.inject.Inject
  */
 class RemoteRepository
 @Inject
-constructor(private val apiService: ApiService) : Repository {
-    override suspend fun getMovies(): MutableLiveData<Resource<MoviesResponse>> {
-        val data = MutableLiveData<Resource<MoviesResponse>>()
-        data.postValue(Resource.loading(null))
+constructor(private val apiService: ApiService) {
+    fun getMovies(callback: LoadMoviesCallback) {
+        EspressoIdlingResource.increment()
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
             override fun onResponse(
                 call: Call<MoviesResponse>,
                 response: Response<MoviesResponse>
             ) {
-                if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
-                } else {
-                    data.postValue(Resource.error(response.message().toString(), null))
-                }
+                callback.onMoviesLoaded(response.body()?.results)
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(), null))
-
+                EspressoIdlingResource.decrement()
             }
         })
-        return data
     }
 
-    override suspend fun getGenreMovies(): MutableLiveData<Resource<GenreResponse>> {
+    fun getGenreMovie(callback: LoadGenreCallback) {
         EspressoIdlingResource.increment()
-        val data = MutableLiveData<Resource<GenreResponse>>()
-        data.postValue(Resource.loading(null))
         apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
             override fun onResponse(
                 call: Call<GenreResponse>,
                 response: Response<GenreResponse>
             ) {
+                callback.onGenreLoaded(response.body()?.genres)
                 EspressoIdlingResource.decrement()
-                if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
-                } else {
-                    data.postValue(Resource.error(response.message().toString(), null))
-                }
             }
 
             override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(), null))
-
+                EspressoIdlingResource.decrement()
             }
         })
-        return data
     }
 
-    override suspend fun getTvShows(): MutableLiveData<Resource<TvShowsResponse>> {
+    fun getTvShow(callback: LoadTvShowCallback) {
         EspressoIdlingResource.increment()
-        val data = MutableLiveData<Resource<TvShowsResponse>>()
-        data.postValue(Resource.loading(null))
         apiService.getTvShows().enqueue(object : Callback<TvShowsResponse> {
             override fun onResponse(
                 call: Call<TvShowsResponse>,
                 response: Response<TvShowsResponse>
             ) {
+                callback.onTvShowLoaded(response.body()?.results)
                 EspressoIdlingResource.decrement()
-                if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
-                } else {
-                    data.postValue(Resource.error(response.message().toString(), null))
-                }
             }
 
             override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(), null))
+                EspressoIdlingResource.decrement()
             }
-
         })
-        return data
     }
 
-    override suspend fun getGenreTvShow(): MutableLiveData<Resource<GenreResponse>> {
+    fun getGenreTvShow(callback: LoadGenreCallback) {
         EspressoIdlingResource.increment()
-        val data = MutableLiveData<Resource<GenreResponse>>()
-        data.postValue(Resource.loading(null))
-        apiService.getGenreTvShow().enqueue(object : Callback<GenreResponse> {
+        apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
             override fun onResponse(
                 call: Call<GenreResponse>,
                 response: Response<GenreResponse>
             ) {
+                callback.onGenreLoaded(response.body()?.genres)
                 EspressoIdlingResource.decrement()
-                if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
-                } else {
-                    data.postValue(Resource.error(response.message().toString(), null))
-                }
             }
 
             override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(), null))
-
+                EspressoIdlingResource.decrement()
             }
         })
-        return data
     }
 
+    interface LoadMoviesCallback {
+        fun onMoviesLoaded(movies: List<MoviesItem>?)
+    }
+
+    interface LoadGenreCallback {
+        fun onGenreLoaded(genres: List<GenresItem>?)
+    }
+
+    interface LoadTvShowCallback {
+        fun onTvShowLoaded(tvShow: List<TvShowsItem>?)
+    }
 
 }

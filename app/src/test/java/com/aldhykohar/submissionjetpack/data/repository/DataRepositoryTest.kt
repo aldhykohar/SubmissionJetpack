@@ -2,60 +2,91 @@ package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aldhykohar.submissionjetpack.data.FakeRemoteRepository
+import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
+import com.aldhykohar.submissionjetpack.utils.DataDummy
+import com.aldhykohar.submissionjetpack.utils.LiveDataTestUtil
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.Mockito.mock
 
 /**
  * Created by aldhykohar on 5/30/2021.
  */
 
-@RunWith(MockitoJUnitRunner::class)
 class DataRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var fakeRemoteRepository: FakeRemoteRepository
+    private val remote = mock(RemoteRepository::class.java)
+    private val fakeRemoteRepository = FakeRemoteRepository(remote)
 
-    @Before
-    fun setUp() {
-        fakeRemoteRepository = FakeRemoteRepository()
-
-    }
+    private val moviesResponse = DataDummy.generateDummyMovies()
+    private val tvShowResponse = DataDummy.generateDummyTvShow()
+    private val genreMoviesResponse = DataDummy.generateDummyGenreMovies()
+    private val genreTvShowResponse = DataDummy.generateDummyGenreTvShows()
 
     @Test
     fun getMovies() {
-        val res = fakeRemoteRepository.getMovies().execute()
-        assertEquals(200, res.code())
-        assertNotNull(res.body()?.results)
-        assertEquals(20, res.body()?.results?.size)
-    }
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadMoviesCallback).onMoviesLoaded(
+                moviesResponse
+            )
+            null
+        }.`when`(remote).getMovies(any())
 
-    @Test
-    fun getGenreMovies() {
-        val res = fakeRemoteRepository.getGenreMovies().execute()
-        assertEquals(200, res.code())
-        assertNotNull(res.body()?.genres)
+        val movieEntities = LiveDataTestUtil.getValue(fakeRemoteRepository.getMovies())
+        verify(remote).getMovies(any())
+        assertNotNull(movieEntities)
+        assertEquals(moviesResponse.size, movieEntities.size)
     }
 
     @Test
     fun getTvShows() {
-        val res = fakeRemoteRepository.getTvShows().execute()
-        assertEquals(200, res.code())
-        assertNotNull(res.body()?.results)
-        assertEquals(20, res.body()?.results?.size)
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadTvShowCallback).onTvShowLoaded(
+                tvShowResponse
+            )
+            null
+        }.`when`(remote).getTvShow(any())
+
+        val tvShowEntities = LiveDataTestUtil.getValue(fakeRemoteRepository.getTvShows())
+        verify(remote).getTvShow(any())
+        assertNotNull(tvShowEntities)
+        assertEquals(moviesResponse.size, tvShowEntities.size)
     }
 
     @Test
-    fun getGenreTvShow() {
-        val res = fakeRemoteRepository.getGenreTvShow().execute()
-        assertEquals(200, res.code())
-        assertNotNull(res.body()?.genres)
+    fun getGenreMovies() {
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadGenreCallback).onGenreLoaded(
+                genreMoviesResponse
+            )
+            null
+        }.`when`(remote).getGenreMovie(any())
+
+        val genreEntities = LiveDataTestUtil.getValue(fakeRemoteRepository.getGenreMovies())
+        verify(remote).getGenreMovie(any())
+        assertNotNull(genreEntities)
+        assertEquals(genreMoviesResponse.size, genreEntities.size)
+    }
+
+    @Test
+    fun getGenreTvShows() {
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadGenreCallback).onGenreLoaded(
+                genreTvShowResponse
+            )
+            null
+        }.`when`(remote).getGenreTvShow(any())
+
+        val genreEntities = LiveDataTestUtil.getValue(fakeRemoteRepository.getGenreTvShow())
+        verify(remote).getGenreTvShow(any())
+        assertNotNull(genreEntities)
+        assertEquals(genreTvShowResponse.size, genreEntities.size)
     }
 }

@@ -48,11 +48,12 @@ class MovieFragment : Fragment(), MoviesListener {
         if (activity != null) {
             setupUI()
         }
+        setupShimmer(true)
         observerViewModel()
     }
 
     private fun observerViewModel() {
-        viewModel.getGenreMovies().observe(viewLifecycleOwner, {
+        /*viewModel.getGenreMovies().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     moviesAdapter.setGenres(it.data?.genres)
@@ -63,12 +64,12 @@ class MovieFragment : Fragment(), MoviesListener {
                     context?.showToast(it.message.toString())
                 }
             }
-        })
-        viewModel.getMovies().observe(viewLifecycleOwner, {
+        })*/
+        /*viewModel.getMovies().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     setupShimmer(false)
-                    moviesAdapter.setMovies(it.data?.results)
+                    moviesAdapter.setMovies(it.data)
                 }
                 Status.LOADING -> {
                     setupShimmer(true)
@@ -78,6 +79,14 @@ class MovieFragment : Fragment(), MoviesListener {
                     context?.showToast(it.message.toString())
                 }
             }
+        })*/
+        viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+            setupShimmer(false)
+            moviesAdapter.setMovies(movies)
+        })
+
+        viewModel.getMoviesGenre().observe(viewLifecycleOwner, { genres ->
+            moviesAdapter.setGenres(genres)
         })
     }
 
