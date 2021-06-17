@@ -15,8 +15,6 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesIt
 import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
-import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
-import com.aldhykohar.submissionjetpack.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,33 +51,6 @@ class MovieFragment : Fragment(), MoviesListener {
     }
 
     private fun observerViewModel() {
-        /*viewModel.getGenreMovies().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    moviesAdapter.setGenres(it.data?.genres)
-                }
-                Status.LOADING -> {
-                }
-                Status.ERROR -> {
-                    context?.showToast(it.message.toString())
-                }
-            }
-        })*/
-        /*viewModel.getMovies().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    setupShimmer(false)
-                    moviesAdapter.setMovies(it.data)
-                }
-                Status.LOADING -> {
-                    setupShimmer(true)
-                }
-                Status.ERROR -> {
-                    setupShimmer(false)
-                    context?.showToast(it.message.toString())
-                }
-            }
-        })*/
         viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
             setupShimmer(false)
             moviesAdapter.setMovies(movies)

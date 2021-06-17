@@ -4,7 +4,6 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreRes
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 
 /**

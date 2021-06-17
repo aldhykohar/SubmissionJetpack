@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -55,8 +53,8 @@ class TvShowViewModelTest {
         Mockito.`when`(dataRepository.getTvShows()).thenReturn(tvShows)
         val tvShow = viewModel.getTvShows().value
         verify(dataRepository).getTvShows()
-        Assert.assertNotNull(tvShow)
-        Assert.assertEquals(1, tvShow?.size)
+        assertNotNull(tvShow)
+        assertEquals(1, tvShow?.size)
 
         viewModel.getTvShows().observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)

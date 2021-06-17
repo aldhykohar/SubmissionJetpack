@@ -3,9 +3,9 @@ package com.aldhykohar.submissionjetpack.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
-import com.aldhykohar.submissionjetpack.utils.Resource
-import retrofit2.Response
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import javax.inject.Inject
 
 

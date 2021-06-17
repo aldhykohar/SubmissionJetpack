@@ -1,13 +1,8 @@
 package com.aldhykohar.submissionjetpack.data.repository.remote
 
-import android.graphics.Movie
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.api.ApiService
-import com.aldhykohar.submissionjetpack.data.repository.Repository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
 import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
-import com.aldhykohar.submissionjetpack.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,27 +1,12 @@
 package com.aldhykohar.submissionjetpack.data
 
-import android.graphics.Movie
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aldhykohar.submissionjetpack.BuildConfig
-import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.Repository
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
-import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
-import com.aldhykohar.submissionjetpack.utils.Resource
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 
 
 /**

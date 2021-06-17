@@ -13,8 +13,6 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsI
 import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
 import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
 import com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity
-import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
-import com.aldhykohar.submissionjetpack.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,33 +44,6 @@ class TvShowFragment : Fragment(), TvShowsListener {
     }
 
     private fun observerViewModel() {
-        /*viewModel.getGenreTvShow().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    tvShowsAdapter.setGenres(it.data?.genres)
-                }
-                Status.LOADING -> {
-                }
-                Status.ERROR -> {
-                    context?.showToast(it.message.toString())
-                }
-            }
-        })
-        viewModel.getTvShows().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    setupShimmer(false)
-                    tvShowsAdapter.setTvShows(it.data?.results)
-                }
-                Status.LOADING -> {
-                    setupShimmer(true)
-                }
-                Status.ERROR -> {
-                    setupShimmer(false)
-                    context?.showToast(it.message.toString())
-                }
-            }
-        })*/
 
         viewModel.getTvShows().observe(viewLifecycleOwner, { movies ->
             setupShimmer(false)

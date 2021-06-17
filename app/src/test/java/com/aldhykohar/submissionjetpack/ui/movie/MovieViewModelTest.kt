@@ -10,10 +10,9 @@ import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
-import org.junit.Test
-
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
