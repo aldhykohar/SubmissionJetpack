@@ -87,8 +87,6 @@ class MovieFragment : Fragment(), MoviesListener {
 
     override fun onItemMoviesClicked(movies: MoviesItem, genre: String) {
         val intent = Intent(context, DetailMoviesActivity::class.java)
-        intent.putExtra(DetailMoviesActivity.EXTRA_MOVIES, movies)
-        intent.putExtra(DetailMoviesActivity.GENRE, genre)
         intent.putExtra(DetailMoviesActivity.ID_MOVIES, movies.id)
         context?.startActivity(intent)
     }

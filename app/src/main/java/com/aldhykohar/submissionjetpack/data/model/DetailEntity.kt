@@ -20,8 +20,8 @@ data class DetailEntity(
     val posterPath: String,
     @field:SerializedName("release_date")
     val releaseDate: String,
-    @field:SerializedName("runtime")
-    val runtime: Int,
+    @field:SerializedName("status")
+    val status: String,
     @field:SerializedName("title")
     val title: String,
     @field:SerializedName("vote_average")

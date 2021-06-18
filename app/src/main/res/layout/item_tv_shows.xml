@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem" />
+            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem" />
 
         <variable
             name="genre"

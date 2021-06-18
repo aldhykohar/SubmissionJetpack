@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -54,7 +54,7 @@ class TvShowViewModelTest {
         val tvShow = viewModel.getTvShows().value
         verify(dataRepository).getTvShows()
         assertNotNull(tvShow)
-        assertEquals(1, tvShow?.size)
+        assertEquals(dummyTvShow.size, tvShow?.size)
 
         viewModel.getTvShows().observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)
@@ -72,7 +72,7 @@ class TvShowViewModelTest {
         verify(dataRepository).getGenreTvShow()
 
         assertNotNull(genre)
-        assertEquals(1, genre?.size)
+        assertEquals(dummyGenre.size, genre?.size)
 
         viewModel.getTvShowGenre().observeForever(observerGenre)
         verify(observerGenre).onChanged(dummyGenre)

@@ -16,8 +16,6 @@ class DetailMoviesActivity : AppCompatActivity() {
 
     companion object {
         const val ID_MOVIES = "id_movies"
-        const val EXTRA_MOVIES = "extra_movies"
-        const val GENRE = "genre"
     }
 
     private val binding: ActivityDetailMoviesBinding by lazy {

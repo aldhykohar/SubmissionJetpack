@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.aldhykohar.submissionjetpack.BuildConfig
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 import com.squareup.picasso.Picasso
 
 

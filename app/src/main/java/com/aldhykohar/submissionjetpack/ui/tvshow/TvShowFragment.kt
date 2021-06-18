@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
 import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
 import com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity
@@ -81,8 +81,6 @@ class TvShowFragment : Fragment(), TvShowsListener {
 
     override fun onItemTvShowsClicked(tvShow: TvShowsItem, genre: String) {
         val intent = Intent(context, DetailTvShowActivity::class.java)
-        intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow)
-        intent.putExtra(DetailTvShowActivity.GENRE, genre)
         intent.putExtra(DetailTvShowActivity.ID_TV_SHOW, tvShow.id)
         context?.startActivity(intent)
     }

@@ -5,6 +5,9 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.DetailTvShowResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsResponse
 import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback

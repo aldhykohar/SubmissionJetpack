@@ -1,26 +1,9 @@
-package com.aldhykohar.submissionjetpack.data.repository.remote.response
+package com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow
 
-import android.os.Parcelable
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-data class TvShowsResponse(
-
-    @field:SerializedName("page")
-    val page: Int,
-
-    @field:SerializedName("total_pages")
-    val totalPages: Int,
-
-    @field:SerializedName("results")
-    val results: List<TvShowsItem>,
-
-    @field:SerializedName("total_results")
-    val totalResults: Int
-)
-
-@Parcelize
-data class TvShowsItem(
+data class DetailTvShowResponse(
 
     @field:SerializedName("first_air_date")
     val firstAirDate: String,
@@ -31,17 +14,14 @@ data class TvShowsItem(
     @field:SerializedName("original_language")
     val originalLanguage: String,
 
-    @field:SerializedName("genre_ids")
-    val genreIds: List<Int>,
-
     @field:SerializedName("poster_path")
     val posterPath: String,
 
-    @field:SerializedName("origin_country")
-    val originCountry: List<String>,
-
     @field:SerializedName("backdrop_path")
     val backdropPath: String,
+
+    @field:SerializedName("genres")
+    val genres: List<GenresItem>,
 
     @field:SerializedName("original_name")
     val originalName: String,
@@ -55,9 +35,18 @@ data class TvShowsItem(
     @field:SerializedName("name")
     val name: String,
 
+    @field:SerializedName("status")
+    val status: String,
+
     @field:SerializedName("id")
     val id: Int,
 
+    @field:SerializedName("in_production")
+    val inProduction: Boolean,
+
+    @field:SerializedName("last_air_date")
+    val lastAirDate: String,
+
     @field:SerializedName("vote_count")
     val voteCount: Int
-) : Parcelable
+)

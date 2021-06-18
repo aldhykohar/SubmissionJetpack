@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.Repository
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.DetailTvShowResponse
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.DetailTvShowResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 
 
 /**
@@ -134,7 +134,7 @@ class FakeRemoteRepository(private val remoteRepository: RemoteRepository):Repos
                             overview,
                             posterPath,
                             releaseDate,
-                            runtime,
+                            status,
                             title,
                             voteAverage,
                             voteCount
@@ -155,25 +155,20 @@ class FakeRemoteRepository(private val remoteRepository: RemoteRepository):Repos
             override fun onDetailTvShowLoaded(details: DetailTvShowResponse?) {
                 if (details != null) {
                     with(details) {
-                        val listGenres = ArrayList<String>()
 
-                        for (genre in genres) {
-                            listGenres.add(genre.name)
-                        }
-
-                        val detailMovie = DetailEntity(
+                        val detailTvShow = DetailEntity(
                             backdropPath,
                             genres,
                             id,
                             overview,
                             posterPath,
                             firstAirDate,
-                            23,
+                            status,
                             originalName,
                             voteAverage,
                             voteCount
                         )
-                        detailResult.postValue(detailMovie)
+                        detailResult.postValue(detailTvShow)
                     }
                 }
             }

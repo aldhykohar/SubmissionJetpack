@@ -53,7 +53,7 @@ class MovieViewModelTest {
         val movie = viewModel.getMovies().value
         verify(dataRepository).getMovies()
         assertNotNull(movie)
-        assertEquals(1, movie?.size)
+        assertEquals(dummyMovies.size, movie?.size)
 
         viewModel.getMovies().observeForever(observerMovie)
         verify(observerMovie).onChanged(dummyMovies)
@@ -69,7 +69,7 @@ class MovieViewModelTest {
         val genre = viewModel.getMoviesGenre().value
         verify(dataRepository).getGenreMovies()
         assertNotNull(genre)
-        assertEquals(1, genre?.size)
+        assertEquals(dummyGenre.size, genre?.size)
 
         viewModel.getMoviesGenre().observeForever(observerGenre)
         verify(observerGenre).onChanged(dummyGenre)

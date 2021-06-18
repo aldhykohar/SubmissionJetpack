@@ -16,8 +16,6 @@ class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
         const val ID_TV_SHOW = "id_tv_show"
-        const val EXTRA_TV_SHOW = "extra_tv_show"
-        const val GENRE = "genre"
     }
 
     private val binding: ActivityDetailTvShowBinding by lazy {

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 
 
 /**

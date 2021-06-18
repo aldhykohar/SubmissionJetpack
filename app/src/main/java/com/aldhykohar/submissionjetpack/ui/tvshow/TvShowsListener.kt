@@ -1,6 +1,6 @@
 package com.aldhykohar.submissionjetpack.ui.tvshow
 
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 
 
 /**

@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.DetailTvShowResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.DetailTvShowResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 import javax.inject.Inject
 
 
@@ -141,7 +141,7 @@ constructor(private val remoteRepository: RemoteRepository) : Repository {
                             overview,
                             posterPath,
                             releaseDate,
-                            runtime,
+                            status,
                             title,
                             voteAverage,
                             voteCount
@@ -175,7 +175,7 @@ constructor(private val remoteRepository: RemoteRepository) : Repository {
                             overview,
                             posterPath,
                             firstAirDate,
-                            23,
+                            status,
                             originalName,
                             voteAverage,
                             voteCount

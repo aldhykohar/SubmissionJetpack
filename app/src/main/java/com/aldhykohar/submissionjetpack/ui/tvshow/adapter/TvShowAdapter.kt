@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 import com.aldhykohar.submissionjetpack.databinding.ItemTvShowsBinding
 import com.aldhykohar.submissionjetpack.ui.tvshow.TvShowsListener
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
@@ -53,7 +53,6 @@ class TvShowAdapter(var listener: TvShowsListener) :
                 val genres = getGenreTvShow(listGenre, tvShows)
                 data = tvShows
                 genre = genres
-
 
                 bindImage(ivMovies, tvShows.posterPath)
 
