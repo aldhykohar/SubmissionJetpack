@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals

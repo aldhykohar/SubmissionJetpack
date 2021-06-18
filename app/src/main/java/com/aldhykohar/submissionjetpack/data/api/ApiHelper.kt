@@ -1,7 +1,9 @@
 package com.aldhykohar.submissionjetpack.data.api
 
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.DetailTvShowResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenreResponse
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsResponse
 import retrofit2.Call
 
@@ -14,4 +16,6 @@ interface ApiHelper {
     suspend fun getGenreMovies(): Call<GenreResponse>
     suspend fun getTvShows(): Call<TvShowsResponse>
     suspend fun getGenreTvShow(): Call<GenreResponse>
+    suspend fun getDetailMovies(moviesId: Int): Call<DetailMovieResponse>
+    suspend fun getTvShowMovies(tvShowId: Int): Call<DetailTvShowResponse>
 }

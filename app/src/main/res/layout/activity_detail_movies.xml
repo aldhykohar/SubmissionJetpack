@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem" />
+            type="com.aldhykohar.submissionjetpack.data.model.DetailEntity" />
 
         <variable
             name="genre"

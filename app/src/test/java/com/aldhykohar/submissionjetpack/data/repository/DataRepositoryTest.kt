@@ -7,6 +7,7 @@ import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.aldhykohar.submissionjetpack.utils.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -26,9 +27,15 @@ class DataRepositoryTest {
     private val fakeRemoteRepository = FakeRemoteRepository(remote)
 
     private val moviesResponse = DataDummy.generateDummyMovies()
-    private val tvShowResponse = DataDummy.generateDummyTvShow()
+    private val movieId = moviesResponse[0].id
     private val genreMoviesResponse = DataDummy.generateDummyGenreMovies()
+    private val moviesDetailResponse = DataDummy.generateDetailMoviesResponse()
+
+    private val tvShowResponse = DataDummy.generateDummyTvShow()
+    private val tvShowId = tvShowResponse[0].id
     private val genreTvShowResponse = DataDummy.generateDummyGenreTvShows()
+    private val tvShowDetailResponse = DataDummy.generateDetailTvShowResponse()
+
 
     @Test
     fun getMovies() {
@@ -88,5 +95,35 @@ class DataRepositoryTest {
         verify(remote).getGenreTvShow(any())
         assertNotNull(genreEntities)
         assertEquals(genreTvShowResponse.size, genreEntities.size)
+    }
+
+    @Test
+    fun getDetailMovies() {
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadDetailMovies).onDetailMoviesLoaded(
+                moviesDetailResponse
+            )
+            null
+        }.`when`(remote).getDetailMovies(any(), eq(movieId))
+
+        val moviesDetail = LiveDataTestUtil.getValue(fakeRemoteRepository.getDetailMovies(movieId))
+        verify(remote).getDetailMovies(any(), eq(movieId))
+        assertNotNull(moviesDetail)
+        assertEquals(moviesDetailResponse.id, moviesDetail.id)
+    }
+
+    @Test
+    fun getDetailTvShow() {
+        doAnswer { invocation ->
+            (invocation.arguments[0] as RemoteRepository.LoadDetailTvShow).onDetailTvShowLoaded(
+                tvShowDetailResponse
+            )
+            null
+        }.`when`(remote).getDetailTvShow(any(), eq(tvShowId))
+
+        val moviesDetail = LiveDataTestUtil.getValue(fakeRemoteRepository.getDetailTvShow(tvShowId))
+        verify(remote).getDetailTvShow(any(), eq(tvShowId))
+        assertNotNull(moviesDetail)
+        assertEquals(tvShowDetailResponse.id, moviesDetail.id)
     }
 }

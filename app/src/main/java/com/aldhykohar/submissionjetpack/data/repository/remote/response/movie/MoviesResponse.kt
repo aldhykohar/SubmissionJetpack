@@ -1,4 +1,4 @@
-package com.aldhykohar.submissionjetpack.data.repository.remote.response
+package com.aldhykohar.submissionjetpack.data.repository.remote.response.movie
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

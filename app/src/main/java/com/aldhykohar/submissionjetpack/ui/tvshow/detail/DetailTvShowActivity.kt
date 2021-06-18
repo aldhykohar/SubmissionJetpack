@@ -2,17 +2,20 @@ package com.aldhykohar.submissionjetpack.ui.tvshow.detail
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import com.aldhykohar.submissionjetpack.databinding.ActivityDetailTvShowBinding
+import com.aldhykohar.submissionjetpack.utils.CommonUtils
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
+        const val ID_TV_SHOW = "id_tv_show"
         const val EXTRA_TV_SHOW = "extra_tv_show"
         const val GENRE = "genre"
     }
@@ -20,6 +23,8 @@ class DetailTvShowActivity : AppCompatActivity() {
     private val binding: ActivityDetailTvShowBinding by lazy {
         ActivityDetailTvShowBinding.inflate(layoutInflater)
     }
+
+    private val viewModel: DetailTvShowViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,20 +60,20 @@ class DetailTvShowActivity : AppCompatActivity() {
 
     private fun setupData() {
         setupShimmer(true)
+        val tvShowId = intent.getIntExtra(ID_TV_SHOW, 0)
+        doLoadDetailTvShow(tvShowId)
+    }
 
-        val genres = intent.getStringExtra(GENRE)
-        val data: TvShowsItem? = intent.getParcelableExtra(EXTRA_TV_SHOW)
-        if (data != null) {
+    private fun doLoadDetailTvShow(tvShowId: Int) {
+        viewModel.getDetailTvShow(tvShowId).observe(this, { data ->
             setupShimmer(false)
             with(binding) {
                 model = data
-                genre = genres
+                genre = CommonUtils.getGenres(data.genres)
                 bindImage(ivMovies, data.posterPath)
                 bindImage(ivImgBackground, data.backdropPath)
-
             }
-
-        }
+        })
     }
 
     private fun setupShimmer(state: Boolean) {

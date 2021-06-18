@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
@@ -89,6 +89,7 @@ class MovieFragment : Fragment(), MoviesListener {
         val intent = Intent(context, DetailMoviesActivity::class.java)
         intent.putExtra(DetailMoviesActivity.EXTRA_MOVIES, movies)
         intent.putExtra(DetailMoviesActivity.GENRE, genre)
+        intent.putExtra(DetailMoviesActivity.ID_MOVIES, movies.id)
         context?.startActivity(intent)
     }
 }

@@ -83,6 +83,7 @@ class TvShowFragment : Fragment(), TvShowsListener {
         val intent = Intent(context, DetailTvShowActivity::class.java)
         intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow)
         intent.putExtra(DetailTvShowActivity.GENRE, genre)
+        intent.putExtra(DetailTvShowActivity.ID_TV_SHOW, tvShow.id)
         context?.startActivity(intent)
     }
 }

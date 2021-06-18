@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.ItemMoviesBinding
 import com.aldhykohar.submissionjetpack.ui.movie.MoviesListener
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage

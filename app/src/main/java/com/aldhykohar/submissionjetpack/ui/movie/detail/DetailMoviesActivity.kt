@@ -3,15 +3,19 @@ package com.aldhykohar.submissionjetpack.ui.movie.detail
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.ActivityDetailMoviesBinding
+import com.aldhykohar.submissionjetpack.utils.CommonUtils
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailMoviesActivity : AppCompatActivity() {
 
     companion object {
+        const val ID_MOVIES = "id_movies"
         const val EXTRA_MOVIES = "extra_movies"
         const val GENRE = "genre"
     }
@@ -19,6 +23,8 @@ class DetailMoviesActivity : AppCompatActivity() {
     private val binding: ActivityDetailMoviesBinding by lazy {
         ActivityDetailMoviesBinding.inflate(layoutInflater)
     }
+
+    private val viewModel: DetailMovieViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +60,20 @@ class DetailMoviesActivity : AppCompatActivity() {
 
     private fun setupData() {
         setupShimmer(true)
+        val moviesId = intent.getIntExtra(ID_MOVIES, 0)
+        doLoadDetailMovies(moviesId)
+    }
 
-        val genres = intent.getStringExtra(GENRE)
-        val data: MoviesItem? = intent.getParcelableExtra(EXTRA_MOVIES)
-        if (data != null) {
+    private fun doLoadDetailMovies(moviesId: Int) {
+        viewModel.getDetailMovies(moviesId).observe(this, { data ->
             setupShimmer(false)
             with(binding) {
                 model = data
-                genre = genres
+                genre = CommonUtils.getGenres(data.genres)
                 bindImage(ivMovies, data.posterPath)
                 bindImage(ivImgBackground, data.backdropPath)
-
             }
-
-        }
+        })
     }
 
     private fun setupShimmer(state: Boolean) {

@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.aldhykohar.submissionjetpack.BuildConfig
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import com.squareup.picasso.Picasso
 
@@ -35,6 +35,14 @@ object CommonUtils {
                     list.add(gn.name)
                 }
             }
+        }
+        return list.joinToString(separator = ", ")
+    }
+
+    fun getGenres(listGenre: List<GenresItem>): String {
+        val list: ArrayList<String> = ArrayList()
+        for (gn in listGenre) {
+            list.add(gn.name)
         }
         return list.joinToString(separator = ", ")
     }

@@ -2,9 +2,12 @@ package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.aldhykohar.submissionjetpack.data.model.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.DetailTvShowResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.TvShowsItem
 import javax.inject.Inject
 
@@ -116,6 +119,74 @@ constructor(private val remoteRepository: RemoteRepository) : Repository {
 
         })
         return genreResult
+    }
+
+    override fun getDetailMovies(moviesId: Int): LiveData<DetailEntity> {
+        val detailResult = MutableLiveData<DetailEntity>()
+
+        remoteRepository.getDetailMovies(object : RemoteRepository.LoadDetailMovies {
+            override fun onDetailMoviesLoaded(details: DetailMovieResponse?) {
+                if (details != null) {
+                    with(details) {
+                        val listGenres = ArrayList<String>()
+
+                        for (genre in genres) {
+                            listGenres.add(genre.name)
+                        }
+
+                        val detailMovie = DetailEntity(
+                            backdropPath,
+                            genres,
+                            id,
+                            overview,
+                            posterPath,
+                            releaseDate,
+                            runtime,
+                            title,
+                            voteAverage,
+                            voteCount
+                        )
+                        detailResult.postValue(detailMovie)
+                    }
+                }
+            }
+
+        }, moviesId)
+        return detailResult
+    }
+
+    override fun getDetailTvShow(tvShowId: Int): LiveData<DetailEntity> {
+        val detailResult = MutableLiveData<DetailEntity>()
+
+        remoteRepository.getDetailTvShow(object : RemoteRepository.LoadDetailTvShow {
+            override fun onDetailTvShowLoaded(details: DetailTvShowResponse?) {
+                if (details != null) {
+                    with(details) {
+                        val listGenres = ArrayList<String>()
+
+                        for (genre in genres) {
+                            listGenres.add(genre.name)
+                        }
+
+                        val detailMovie = DetailEntity(
+                            backdropPath,
+                            genres,
+                            id,
+                            overview,
+                            posterPath,
+                            firstAirDate,
+                            23,
+                            originalName,
+                            voteAverage,
+                            voteCount
+                        )
+                        detailResult.postValue(detailMovie)
+                    }
+                }
+            }
+
+        }, tvShowId)
+        return detailResult
     }
 
 }

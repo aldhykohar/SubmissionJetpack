@@ -2,6 +2,9 @@ package com.aldhykohar.submissionjetpack.data.repository.remote
 
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesResponse
 import com.aldhykohar.submissionjetpack.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,6 +86,41 @@ constructor(private val apiService: ApiService) {
         })
     }
 
+    fun getDetailMovies(callback: LoadDetailMovies, moviesId: Int) {
+        EspressoIdlingResource.increment()
+        apiService.getDetailMovie(moviesId).enqueue(object : Callback<DetailMovieResponse> {
+            override fun onResponse(
+                call: Call<DetailMovieResponse>,
+                response: Response<DetailMovieResponse>
+            ) {
+                callback.onDetailMoviesLoaded(response.body())
+                EspressoIdlingResource.decrement()
+            }
+
+            override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
+                EspressoIdlingResource.decrement()
+            }
+
+        })
+    }
+
+    fun getDetailTvShow(callback: LoadDetailTvShow, moviesId: Int) {
+        EspressoIdlingResource.increment()
+        apiService.getDetailTvShow(moviesId).enqueue(object : Callback<DetailTvShowResponse> {
+            override fun onResponse(
+                call: Call<DetailTvShowResponse>,
+                response: Response<DetailTvShowResponse>
+            ) {
+                callback.onDetailTvShowLoaded(response.body())
+                EspressoIdlingResource.decrement()
+            }
+
+            override fun onFailure(call: Call<DetailTvShowResponse>, t: Throwable) {
+                EspressoIdlingResource.decrement()
+            }
+        })
+    }
+
     interface LoadMoviesCallback {
         fun onMoviesLoaded(movies: List<MoviesItem>?)
     }
@@ -93,6 +131,14 @@ constructor(private val apiService: ApiService) {
 
     interface LoadTvShowCallback {
         fun onTvShowLoaded(tvShow: List<TvShowsItem>?)
+    }
+
+    interface LoadDetailMovies {
+        fun onDetailMoviesLoaded(details: DetailMovieResponse?)
+    }
+
+    interface LoadDetailTvShow {
+        fun onDetailTvShowLoaded(details: DetailTvShowResponse?)
     }
 
 }

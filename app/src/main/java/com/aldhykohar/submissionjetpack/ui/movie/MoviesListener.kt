@@ -1,6 +1,6 @@
 package com.aldhykohar.submissionjetpack.ui.movie
 
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 
 
 /**
