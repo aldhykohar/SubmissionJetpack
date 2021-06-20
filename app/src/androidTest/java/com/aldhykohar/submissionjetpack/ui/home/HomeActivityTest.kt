@@ -71,7 +71,8 @@ class HomeActivityTest {
     @Test
     fun loadDetailMovie() {
 
-        val data = endpoint.getMovies().execute().body()?.results
+        val movieId = endpoint.getMovies().execute().body()?.results!![0].id
+        val data = endpoint.getDetailMovie(movieId).execute().body()
 
         onView(withId(R.id.rvMovie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -80,16 +81,16 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvTitle)).check(matches(withText(data!![0].title)))
+        onView(withId(R.id.tvTitle)).check(matches(withText(data!!.title)))
         onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
         onView(withId(R.id.tvDate)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDate)).check(matches(withText(data[0].releaseDate)))
+        onView(withId(R.id.tvDate)).check(matches(withText(data.releaseDate)))
         onView(withId(R.id.tvDesc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDesc)).check(matches(withText(data[0].overview)))
+        onView(withId(R.id.tvDesc)).check(matches(withText(data.overview)))
         onView(withId(R.id.tvRate)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRate)).check(matches(withText(data[0].voteAverage.toString())))
+        onView(withId(R.id.tvRate)).check(matches(withText(data.voteAverage.toString())))
         onView(withId(R.id.tvVoteCount)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvVoteCount)).check(matches(withText(data[0].voteCount.toString() + " views")))
+        onView(withId(R.id.tvVoteCount)).check(matches(withText(data.voteCount.toString() + " views")))
         onView(withId(R.id.ivMovies)).check(matches(isDisplayed()))
         onView(withId(R.id.ivImgBackground)).check(matches(isDisplayed()))
         onView(withId(R.id.tvReadMore)).perform(click())
@@ -98,7 +99,8 @@ class HomeActivityTest {
 
     @Test
     fun loadDetailTvShow() {
-        val data = endpoint.getTvShows().execute().body()?.results
+        val tvShowId = endpoint.getTvShows().execute().body()?.results!![0].id
+        val data = endpoint.getDetailTvShow(tvShowId).execute().body()
 
         onView(withText("Tv Shows")).perform(click())
         onView(withId(R.id.rvTvShow)).perform(
@@ -108,16 +110,16 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvTitle)).check(matches(withText(data!![0].name)))
+        onView(withId(R.id.tvTitle)).check(matches(withText(data!!.name)))
         onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
         onView(withId(R.id.tvDate)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDate)).check(matches(withText(data[0].firstAirDate)))
+        onView(withId(R.id.tvDate)).check(matches(withText(data.firstAirDate)))
         onView(withId(R.id.tvDesc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvDesc)).check(matches(withText(data[0].overview)))
+        onView(withId(R.id.tvDesc)).check(matches(withText(data.overview)))
         onView(withId(R.id.tvRate)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRate)).check(matches(withText(data[0].voteAverage.toString())))
+        onView(withId(R.id.tvRate)).check(matches(withText(data.voteAverage.toString())))
         onView(withId(R.id.tvVoteCount)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvVoteCount)).check(matches(withText(data[0].voteCount.toString() + " views")))
+        onView(withId(R.id.tvVoteCount)).check(matches(withText(data.voteCount.toString() + " views")))
         onView(withId(R.id.ivMovies)).check(matches(isDisplayed()))
         onView(withId(R.id.ivImgBackground)).check(matches(isDisplayed()))
         onView(withId(R.id.tvReadMore)).perform(click())
