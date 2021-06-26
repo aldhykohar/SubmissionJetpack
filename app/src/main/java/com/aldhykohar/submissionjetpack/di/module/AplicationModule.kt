@@ -1,13 +1,18 @@
 package com.aldhykohar.submissionjetpack.di.module
 
+import android.content.Context
+import androidx.room.Room
 import com.aldhykohar.submissionjetpack.BuildConfig
 import com.aldhykohar.submissionjetpack.data.api.ApiHelper
 import com.aldhykohar.submissionjetpack.data.api.ApiHelperImpl
 import com.aldhykohar.submissionjetpack.data.api.ApiService
+import com.aldhykohar.submissionjetpack.data.room.AppDao
+import com.aldhykohar.submissionjetpack.data.room.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -72,4 +77,19 @@ class AplicationModule {
     @Provides
     @Singleton
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
+
+    @Provides
+    fun provideChannelDao(appDatabase: AppDatabase): AppDao {
+        return appDatabase.movieDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "MovieDB"
+        ).build()
+    }
 }

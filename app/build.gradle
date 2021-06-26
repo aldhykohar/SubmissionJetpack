@@ -37,8 +37,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled true
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 }
 
@@ -103,4 +104,9 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2"
     //For InstantTaskExecutorRule
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
+
 }

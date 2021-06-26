@@ -21,6 +21,7 @@ import javax.inject.Inject
 class RemoteRepository
 @Inject
 constructor(private val apiService: ApiService) {
+    
     fun getMovies(callback: LoadMoviesCallback) {
         EspressoIdlingResource.increment()
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {

@@ -256,28 +256,6 @@
                         android:textSize="12sp"
                         tools:text="@string/movies" />
 
-                    <!--<TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/nunito_bold"
-                        android:includeFontPadding="false"
-                        android:text="@string/u2022"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tvAdult"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/nunito_reguler"
-                        android:includeFontPadding="false"
-                        android:text='@{model.adult?"Adult":"General"}'
-                        android:textColor="@color/colorGreyDark"
-                        android:textSize="12sp"
-                        tools:text="@string/movies" />-->
-
                 </LinearLayout>
 
                 <View
@@ -294,6 +272,17 @@
 
         </ScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_favorite_24"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
