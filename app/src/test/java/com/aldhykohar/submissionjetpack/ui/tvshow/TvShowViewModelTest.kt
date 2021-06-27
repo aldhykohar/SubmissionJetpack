@@ -4,8 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -33,10 +32,7 @@ class TvShowViewModelTest {
     private lateinit var dataRepository: DataRepository
 
     @Mock
-    private lateinit var observerTvShow: Observer<List<TvShowsItem>>
-
-    @Mock
-    private lateinit var observerGenre: Observer<List<GenresItem>>
+    private lateinit var observerTvShow: Observer<List<TvShowsEntity>>
 
 
     @Before
@@ -46,8 +42,8 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dummyTvShow = DataDummy.generateDummyTvShow()
-        val tvShows = MutableLiveData<List<TvShowsItem>>()
+        val dummyTvShow = DataDummy.generateDummyTvShowEntities()
+        val tvShows = MutableLiveData<List<TvShowsEntity>>()
         tvShows.value = dummyTvShow
 
         Mockito.`when`(dataRepository.getTvShows()).thenReturn(tvShows)
@@ -59,22 +55,5 @@ class TvShowViewModelTest {
         viewModel.getTvShows().observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)
 
-    }
-
-    @Test
-    fun getTvShowGenre() {
-        val dummyGenre = DataDummy.generateDummyGenreTvShows()
-        val genres = MutableLiveData<List<GenresItem>>()
-        genres.value = dummyGenre
-
-        Mockito.`when`(dataRepository.getGenreTvShow()).thenReturn(genres)
-        val genre = viewModel.getTvShowGenre().value
-        verify(dataRepository).getGenreTvShow()
-
-        assertNotNull(genre)
-        assertEquals(dummyGenre.size, genre?.size)
-
-        viewModel.getTvShowGenre().observeForever(observerGenre)
-        verify(observerGenre).onChanged(dummyGenre)
     }
 }

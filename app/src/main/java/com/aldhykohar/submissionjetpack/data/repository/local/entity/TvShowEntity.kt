@@ -34,8 +34,5 @@ data class TvShowsEntity(
     @PrimaryKey
     @NotNull
     @ColumnInfo(name = "id_tvshow")
-    val id: Int,
-
-    @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val id: Int
 )

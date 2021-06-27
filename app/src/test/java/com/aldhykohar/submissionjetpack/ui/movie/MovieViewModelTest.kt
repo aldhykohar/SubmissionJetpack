@@ -4,8 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
@@ -33,10 +32,7 @@ class MovieViewModelTest {
     private lateinit var dataRepository: DataRepository
 
     @Mock
-    private lateinit var observerMovie: Observer<List<MoviesItem>>
-
-    @Mock
-    private lateinit var observerGenre: Observer<List<GenresItem>>
+    private lateinit var observerMovie: Observer<List<MovieEntity>>
 
     @Before
     fun setUp() {
@@ -45,8 +41,8 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovies = DataDummy.generateDummyMovies()
-        val movies = MutableLiveData<List<MoviesItem>>()
+        val dummyMovies = DataDummy.generateDummyMoviesEntities()
+        val movies = MutableLiveData<List<MovieEntity>>()
         movies.value = dummyMovies
 
         `when`(dataRepository.getMovies()).thenReturn(movies)
@@ -57,21 +53,5 @@ class MovieViewModelTest {
 
         viewModel.getMovies().observeForever(observerMovie)
         verify(observerMovie).onChanged(dummyMovies)
-    }
-
-    @Test
-    fun getMoviesGenre() {
-        val dummyGenre = DataDummy.generateDummyGenreMovies()
-        val genres = MutableLiveData<List<GenresItem>>()
-        genres.value = dummyGenre
-
-        `when`(dataRepository.getGenreMovies()).thenReturn(genres)
-        val genre = viewModel.getMoviesGenre().value
-        verify(dataRepository).getGenreMovies()
-        assertNotNull(genre)
-        assertEquals(dummyGenre.size, genre?.size)
-
-        viewModel.getMoviesGenre().observeForever(observerGenre)
-        verify(observerGenre).onChanged(dummyGenre)
     }
 }

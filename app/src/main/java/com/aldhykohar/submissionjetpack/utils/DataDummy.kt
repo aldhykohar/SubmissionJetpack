@@ -1,6 +1,8 @@
 package com.aldhykohar.submissionjetpack.utils
 
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.*
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.DetailTvShowResponse
@@ -11,19 +13,32 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.T
  * Created by aldhykohar on 5/2/2021.
  */
 object DataDummy {
+
     fun generateDummyMovies(): List<MoviesItem> {
         val movies = ArrayList<MoviesItem>()
 
-        val genre = ArrayList<Int>()
-        genre.add(35)
-        genre.add(80)
-
         movies.add(
             MoviesItem(
-                "In 1970s London amidst the punk rock revolution, a young grifter named Estella is determined to make a name for herself with her designs. She befriends a pair of young thieves who appreciate her appetite for mischief, and together they are able to build a life for themselves on the London streets. One day, Estella’s flair for fashion catches the eye of the Baroness von Hellman, a fashion legend who is devastatingly chic and terrifyingly haute. But their relationship sets in motion a course of events and revelations that will cause Estella to embrace her wicked side and become the raucous, fashionable and revenge-bent Cruella.",
-                "en", "Cruella", false, "Cruella", genre, "/rTh4K5uw9HypmpGslcKd4QfHl93.jpg",
-                "/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg", "2021-05-26", 3697.167, 8.6,
-                337404, false, 2713
+                508943,
+                "Luca and his best friend Alberto experience an unforgettable summer on the Italian Riviera. But all the fun is threatened by a deeply-held secret: they are sea monsters from another world just below the water’s surface.",
+                "Luca",
+                "Luca",
+                "/jTswp6KyDYKtvC52GbHagrZbGvD.jpg", "2021-06-17", 8.2
+            )
+        )
+        return movies
+    }
+
+    fun generateDummyMoviesEntities(): List<MovieEntity> {
+        val movies = ArrayList<MovieEntity>()
+
+        movies.add(
+            MovieEntity(
+                508943,
+                "Luca and his best friend Alberto experience an unforgettable summer on the Italian Riviera. But all the fun is threatened by a deeply-held secret: they are sea monsters from another world just below the water’s surface.",
+                "Luca",
+                "Luca",
+                "/jTswp6KyDYKtvC52GbHagrZbGvD.jpg", "2021-06-17", 8.2
             )
         )
         return movies
@@ -65,28 +80,33 @@ object DataDummy {
 
         val tvShow = ArrayList<TvShowsItem>()
 
-        val genre = ArrayList<Int>()
-        genre.add(18)
-        genre.add(10765)
-
-        val country = ArrayList<String>()
-        country.add("US")
-
         tvShow.add(
             TvShowsItem(
                 "2021-06-09",
                 "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant”or help fix the timeline and stop a greater threat.",
-                "en",
-                genre,
                 "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
-                country,
-                "/ykElAtsOBoArgI1A8ATVH0MNve0.jpg",
-                "Loki",
-                6160.834,
+                "Loki",5664.164,
                 8.1,
                 "Loki",
-                84958,
-                2789
+                84958
+            )
+        )
+        return tvShow
+    }
+
+    fun generateDummyTvShowEntities(): List<TvShowsEntity> {
+
+        val tvShow = ArrayList<TvShowsEntity>()
+
+        tvShow.add(
+            TvShowsEntity(
+                "2021-06-09",
+                "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant”or help fix the timeline and stop a greater threat.",
+                "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
+                "Loki",
+                8.1,
+                "Loki",
+                84958
             )
         )
         return tvShow
@@ -123,24 +143,6 @@ object DataDummy {
             ), "Loki", 6160.834, 8.1, "Loki", "Returning Series", 84958,
             true, "2021-06-16", 2789
         )
-    }
-
-    fun generateDummyGenreMovies(): List<GenresItem> {
-        val genres = ArrayList<GenresItem>()
-
-        genres.add(
-            GenresItem("Action", 28)
-        )
-        return genres
-    }
-
-    fun generateDummyGenreTvShows(): List<GenresItem> {
-        val genres = ArrayList<GenresItem>()
-
-        genres.add(
-            GenresItem("Action & Adventure", 10759)
-        )
-        return genres
     }
 
 }

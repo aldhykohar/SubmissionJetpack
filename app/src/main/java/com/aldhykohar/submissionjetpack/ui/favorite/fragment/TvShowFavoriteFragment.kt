@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
-import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
+import com.aldhykohar.submissionjetpack.databinding.FragmentTvShowFavBinding
 import com.aldhykohar.submissionjetpack.ui.favorite.FavoriteViewModel
 import com.aldhykohar.submissionjetpack.ui.favorite.adapter.FavoriteTvShowAdapter
 import com.aldhykohar.submissionjetpack.ui.tvshow.TvShowsListener
@@ -24,8 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TvShowFavoriteFragment : Fragment(), TvShowsListener {
-    private val binding: FragmentMovieBinding by lazy {
-        FragmentMovieBinding.inflate(layoutInflater)
+    private val binding: FragmentTvShowFavBinding by lazy {
+        FragmentTvShowFavBinding.inflate(layoutInflater)
     }
 
     private val moviesAdapter: FavoriteTvShowAdapter by lazy {
@@ -62,7 +62,7 @@ class TvShowFavoriteFragment : Fragment(), TvShowsListener {
 
     private fun setupUI() {
         with(binding) {
-            rvMovie.apply {
+            rvTvShowFav.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = moviesAdapter
@@ -75,11 +75,11 @@ class TvShowFavoriteFragment : Fragment(), TvShowsListener {
             if (state) {
                 shimmer.visibility = VISIBLE
                 shimmer.startShimmer()
-                rvMovie.visibility = View.GONE
+                rvTvShowFav.visibility = View.GONE
             } else {
                 shimmer.visibility = View.GONE
                 shimmer.stopShimmer()
-                rvMovie.visibility = VISIBLE
+                rvTvShowFav.visibility = VISIBLE
             }
         }
     }

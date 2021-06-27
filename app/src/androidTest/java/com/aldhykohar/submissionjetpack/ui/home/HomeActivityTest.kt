@@ -126,4 +126,23 @@ class HomeActivityTest {
         onView(withId(R.id.ivBack)).perform(click())
     }
 
+    @Test
+    fun loadFavoriteMovies() {
+        onView(withId(R.id.action_fav)).perform(click())
+        onView(withId(R.id.rvMovieFav)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvMovieFav)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0)
+        )
+    }
+
+    @Test
+    fun loadFavoriteTvShow() {
+        onView(withId(R.id.action_fav)).perform(click())
+        onView(withText("Tv Shows")).perform(click())
+        onView(withId(R.id.rvTvShowFav)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvTvShowFav)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0)
+        )
+    }
+
 }

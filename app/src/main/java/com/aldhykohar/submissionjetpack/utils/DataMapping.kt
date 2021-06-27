@@ -19,7 +19,6 @@ object DataMapping {
                 title,
                 title,
                 posterPath,
-                backdropPath,
                 releaseDate,
                 voteAverage
             )
@@ -30,7 +29,7 @@ object DataMapping {
         with(data) {
             return TvShowsEntity(
                 releaseDate,
-                overview, posterPath, title, voteAverage, title, id, voteCount
+                overview, posterPath, title, voteAverage, title, id
             )
         }
     }

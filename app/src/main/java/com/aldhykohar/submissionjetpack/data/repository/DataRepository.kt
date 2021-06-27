@@ -40,7 +40,6 @@ constructor(
                                 originalTitle,
                                 title,
                                 posterPath,
-                                backdropPath,
                                 releaseDate, voteAverage
                             )
                             movieList.add(movie)
@@ -70,8 +69,7 @@ constructor(
                                 originalName,
                                 voteAverage,
                                 name,
-                                id,
-                                voteCount
+                                id
                             )
                             tvShowList.add(tvShows)
                         }

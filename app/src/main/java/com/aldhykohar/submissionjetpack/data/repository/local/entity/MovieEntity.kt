@@ -30,9 +30,6 @@ data class MovieEntity(
     @ColumnInfo(name = "poster_path")
     val posterPath: String,
 
-    @ColumnInfo(name = "backdrop_path")
-    val backdropPath: String? = null,
-
     @ColumnInfo(name = "release_date")
     val releaseDate: String? = null,
 

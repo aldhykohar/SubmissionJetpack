@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
-import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
+import com.aldhykohar.submissionjetpack.databinding.FragmentMovieFavBinding
 import com.aldhykohar.submissionjetpack.ui.favorite.FavoriteViewModel
 import com.aldhykohar.submissionjetpack.ui.favorite.adapter.FavoriteMovieAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.MoviesListener
@@ -25,8 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieFavoriteFragment : Fragment(), MoviesListener {
-    private val binding: FragmentMovieBinding by lazy {
-        FragmentMovieBinding.inflate(layoutInflater)
+    private val binding: FragmentMovieFavBinding by lazy {
+        FragmentMovieFavBinding.inflate(layoutInflater)
     }
 
     private val moviesAdapter: FavoriteMovieAdapter by lazy {
@@ -63,7 +63,7 @@ class MovieFavoriteFragment : Fragment(), MoviesListener {
 
     private fun setupUI() {
         with(binding) {
-            rvMovie.apply {
+            rvMovieFav.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = moviesAdapter
@@ -76,11 +76,11 @@ class MovieFavoriteFragment : Fragment(), MoviesListener {
             if (state) {
                 shimmer.visibility = VISIBLE
                 shimmer.startShimmer()
-                rvMovie.visibility = GONE
+                rvMovieFav.visibility = GONE
             } else {
                 shimmer.visibility = GONE
                 shimmer.stopShimmer()
-                rvMovie.visibility = VISIBLE
+                rvMovieFav.visibility = VISIBLE
             }
         }
     }
