@@ -12,5 +12,6 @@ import javax.inject.Inject
 class LocalRepository
 @Inject constructor(private val appDao: AppDao) {
 
-    fun getMovies(): DataSource.Factory<Int, MovieEntity> = appDao.getMovies()
+    suspend fun insertMovieFav(movies: MovieEntity) = appDao.insertMovies(movies)
+    fun getMovieFav():DataSource.Factory<Int, MovieEntity> = appDao.getMovies()
 }

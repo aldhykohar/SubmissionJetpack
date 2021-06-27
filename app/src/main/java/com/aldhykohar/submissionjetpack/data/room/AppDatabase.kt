@@ -2,6 +2,7 @@ package com.aldhykohar.submissionjetpack.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 
 
@@ -13,6 +14,7 @@ import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun movieDao(): AppDao
+    abstract fun appDao(): AppDao
 }

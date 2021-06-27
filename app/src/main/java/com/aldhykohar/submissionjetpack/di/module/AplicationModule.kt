@@ -8,6 +8,7 @@ import com.aldhykohar.submissionjetpack.data.api.ApiHelperImpl
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.room.AppDao
 import com.aldhykohar.submissionjetpack.data.room.AppDatabase
+import com.aldhykohar.submissionjetpack.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -80,7 +81,12 @@ class AplicationModule {
 
     @Provides
     fun provideChannelDao(appDatabase: AppDatabase): AppDao {
-        return appDatabase.movieDao()
+        return appDatabase.appDao()
+    }
+
+    @Provides
+    fun provideAppExecutors(appExecutors: AppExecutors): AppExecutors {
+        return appExecutors
     }
 
     @Provides

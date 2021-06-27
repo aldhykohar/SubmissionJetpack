@@ -1,6 +1,8 @@
 package com.aldhykohar.submissionjetpack.ui.favorite
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
 import com.aldhykohar.submissionjetpack.databinding.ActivityFavoriteBinding

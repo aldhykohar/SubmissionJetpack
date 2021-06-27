@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.Toast
 import com.aldhykohar.submissionjetpack.BuildConfig
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
@@ -26,7 +27,7 @@ object CommonUtils {
         Toast.makeText(this, message, type).show()
     }
 
-    fun getGenreMovies(listGenre: List<GenresItem>, movies: MoviesItem): String {
+    fun getGenreMovies(listGenre: List<GenresItem>, movies: MovieEntity): String {
         val list: ArrayList<String> = ArrayList()
         out_loop@ for ((i, genre) in movies.genreIds.withIndex()) {
             for (gn in listGenre) {

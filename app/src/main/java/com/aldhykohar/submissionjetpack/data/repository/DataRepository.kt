@@ -2,13 +2,18 @@ package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.LocalRepository
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.RemoteRepository
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.DetailTvShowResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
+import com.aldhykohar.submissionjetpack.utils.AppExecutors
 import javax.inject.Inject
 
 
@@ -17,31 +22,28 @@ import javax.inject.Inject
  */
 class DataRepository
 @Inject
-constructor(private val remoteRepository: RemoteRepository) : Repository {
-    override fun getMovies(): LiveData<List<MoviesItem>> {
-        val movieResult = MutableLiveData<List<MoviesItem>>()
+constructor(
+    private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository
+) : Repository {
+    override fun getMovies(): LiveData<List<MovieEntity>> {
+        val movieResult = MutableLiveData<List<MovieEntity>>()
 
         remoteRepository.getMovies(object : RemoteRepository.LoadMoviesCallback {
             override fun onMoviesLoaded(movies: List<MoviesItem>?) {
-                val movieList = ArrayList<MoviesItem>()
+                val movieList = ArrayList<MovieEntity>()
                 if (movies != null) {
                     for (response in movies) {
                         with(response) {
-                            val movie = MoviesItem(
+                            val movie = MovieEntity(
+                                id,
                                 overview,
-                                originalLanguage,
                                 originalTitle,
-                                video,
                                 title,
                                 genreIds,
                                 posterPath,
                                 backdropPath,
-                                releaseDate,
-                                popularity,
-                                voteAverage,
-                                id,
-                                adult,
-                                voteCount
+                                releaseDate, voteAverage
                             )
                             movieList.add(movie)
                         }
@@ -187,6 +189,18 @@ constructor(private val remoteRepository: RemoteRepository) : Repository {
 
         }, tvShowId)
         return detailResult
+    }
+
+    suspend fun setMovieFav(movie: MovieEntity) =
+        localRepository.insertMovieFav(movie)
+
+    fun getMovieFav(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localRepository.getMovieFav(), config).build()
     }
 
 }

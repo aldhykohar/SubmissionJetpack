@@ -6,9 +6,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.aldhykohar.submissionjetpack.R
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.databinding.ActivityDetailMoviesBinding
 import com.aldhykohar.submissionjetpack.utils.CommonUtils
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
+import com.aldhykohar.submissionjetpack.utils.DataMapping
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,8 @@ class DetailMoviesActivity : AppCompatActivity() {
     private val binding: ActivityDetailMoviesBinding by lazy {
         ActivityDetailMoviesBinding.inflate(layoutInflater)
     }
+
+    private lateinit var moviesItem: MovieEntity
 
     private val viewModel: DetailMovieViewModel by viewModels()
 
@@ -35,6 +39,9 @@ class DetailMoviesActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener { onBackPressed() }
             tvReadMore.setOnClickListener { setupReadMore() }
+            fbFav.setOnClickListener {
+                viewModel.setFavorite(moviesItem)
+            }
         }
     }
 
@@ -66,6 +73,7 @@ class DetailMoviesActivity : AppCompatActivity() {
         viewModel.getDetailMovies(moviesId).observe(this, { data ->
             setupShimmer(false)
             with(binding) {
+                moviesItem = DataMapping.generateMovie(data)
                 model = data
                 genre = CommonUtils.getGenres(data.genres)
                 bindImage(ivMovies, data.posterPath)

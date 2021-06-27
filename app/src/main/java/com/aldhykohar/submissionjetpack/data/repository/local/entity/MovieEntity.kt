@@ -21,14 +21,8 @@ data class MovieEntity(
     @ColumnInfo(name = "overview")
     val overview: String,
 
-    @ColumnInfo(name = "original_language")
-    val originalLanguage: String,
-
     @ColumnInfo(name = "original_title")
     val originalTitle: String,
-
-    @ColumnInfo(name = "video")
-    val video: Boolean,
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -45,16 +39,7 @@ data class MovieEntity(
     @ColumnInfo(name = "release_date")
     val releaseDate: String? = null,
 
-    @ColumnInfo(name = "popularity")
-    val popularity: Double,
-
     @ColumnInfo(name = "vote_average")
-    val voteAverage: Double,
-
-    @ColumnInfo(name = "adult")
-    val adult: Boolean,
-
-    @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val voteAverage: Double
 
 )

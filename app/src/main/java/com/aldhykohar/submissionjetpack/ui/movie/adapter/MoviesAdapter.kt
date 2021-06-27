@@ -3,6 +3,7 @@ package com.aldhykohar.submissionjetpack.ui.movie.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.ItemMoviesBinding
@@ -16,7 +17,7 @@ import com.aldhykohar.submissionjetpack.utils.CommonUtils.getGenreMovies
  */
 class MoviesAdapter(var listener: MoviesListener) :
     RecyclerView.Adapter<MoviesAdapter.ItemViewHolder>() {
-    private var listMovies = ArrayList<MoviesItem>()
+    private var listMovies = ArrayList<MovieEntity>()
     private var listGenre = ArrayList<GenresItem>()
 
     fun setGenres(genres: List<GenresItem>?) {
@@ -25,7 +26,7 @@ class MoviesAdapter(var listener: MoviesListener) :
         this.listGenre.addAll(genres)
     }
 
-    fun setMovies(movies: List<MoviesItem>?) {
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies == null) return
         this.listMovies.clear()
         this.listMovies.addAll(movies)
@@ -48,7 +49,7 @@ class MoviesAdapter(var listener: MoviesListener) :
 
     inner class ItemViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies: MoviesItem) {
+        fun bind(movies: MovieEntity) {
             with(binding) {
                 val genres = getGenreMovies(listGenre, movies)
                 data = movies
