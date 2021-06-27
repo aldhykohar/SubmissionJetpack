@@ -3,6 +3,7 @@ package com.aldhykohar.submissionjetpack.ui.home
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -128,21 +129,28 @@ class HomeActivityTest {
 
     @Test
     fun loadFavoriteMovies() {
+        onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fbFav)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
         onView(withId(R.id.action_fav)).perform(click())
         onView(withId(R.id.rvMovieFav)).check(matches(isDisplayed()))
-        onView(withId(R.id.rvMovieFav)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0)
-        )
+        onView(withId(R.id.rvMovieFav)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fbFav)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
     }
 
     @Test
     fun loadFavoriteTvShow() {
+        onView(withText("Tv Shows")).perform(click())
+        onView(withId(R.id.rvTvShow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fbFav)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
         onView(withId(R.id.action_fav)).perform(click())
         onView(withText("Tv Shows")).perform(click())
         onView(withId(R.id.rvTvShowFav)).check(matches(isDisplayed()))
-        onView(withId(R.id.rvTvShowFav)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0)
-        )
+        onView(withId(R.id.rvTvShowFav)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.fbFav)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
     }
 
 }
