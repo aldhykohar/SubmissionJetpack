@@ -9,10 +9,8 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
@@ -54,17 +52,13 @@ class MovieFragment : Fragment(), MoviesListener {
             setupShimmer(false)
             moviesAdapter.setMovies(movies)
         })
-
-        viewModel.getMoviesGenre().observe(viewLifecycleOwner, { genres ->
-            moviesAdapter.setGenres(genres)
-        })
     }
 
     private fun setupUI() {
         with(binding) {
             rvMovie.apply {
                 setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                layoutManager = GridLayoutManager(context, 2)
                 adapter = moviesAdapter
             }
         }
@@ -84,7 +78,7 @@ class MovieFragment : Fragment(), MoviesListener {
         }
     }
 
-    override fun onItemMoviesClicked(movies: MovieEntity, genre: String) {
+    override fun onItemMoviesClicked(movies: MovieEntity) {
         val intent = Intent(context, DetailMoviesActivity::class.java)
         intent.putExtra(DetailMoviesActivity.ID_MOVIES, movies.id)
         context?.startActivity(intent)

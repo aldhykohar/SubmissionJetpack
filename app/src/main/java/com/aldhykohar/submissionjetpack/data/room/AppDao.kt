@@ -2,12 +2,10 @@ package com.aldhykohar.submissionjetpack.data.room
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.aldhykohar.submissionjetpack.data.repository.local.entity.GenreEntity
+import androidx.paging.PagedList
+import androidx.room.*
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 
 
 /**
@@ -23,9 +21,22 @@ interface AppDao {
     @Query("SELECT * FROM tb_movie")
     fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGenre(genre: List<GenreEntity>)
+    @Query("SELECT * FROM tb_movie WHERE movieId = :movieId")
+    fun checkMovieFav(movieId: Int): LiveData<MovieEntity>
 
-    @Query("SELECT * FROM tb_genre")
-    fun getAllGenre(): LiveData<List<GenreEntity>>
+    @Delete
+    suspend fun deleteMovie(movie: MovieEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTvShow(movie: TvShowsEntity)
+
+    @Query("SELECT * FROM tb_tvshow")
+    fun getTvShow(): DataSource.Factory<Int, TvShowsEntity>
+
+    @Query("SELECT * FROM tb_tvshow WHERE id_tvshow = :tvShowId")
+    fun checkTvShowFav(tvShowId: Int): LiveData<TvShowsEntity>
+
+    @Delete
+    suspend fun deleteTvShow(movie: TvShowsEntity)
+
 }

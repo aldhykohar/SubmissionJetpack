@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 
 
 /**
@@ -15,6 +16,7 @@ class FavoriteViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
 
-    fun getFavorite(): LiveData<PagedList<MovieEntity>> = repository.getMovieFav()
+    fun getFavoriteMovie(): LiveData<PagedList<MovieEntity>> = repository.getMovieFav()
+    fun getFavoriteTvSHow(): LiveData<PagedList<TvShowsEntity>> = repository.getTvShowFav()
 
 }

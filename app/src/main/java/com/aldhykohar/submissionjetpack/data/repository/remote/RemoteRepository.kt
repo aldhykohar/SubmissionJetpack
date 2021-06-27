@@ -41,25 +41,6 @@ constructor(private val apiService: ApiService) {
         })
     }
 
-    fun getGenreMovie(): LiveData<ApiResponse<List<GenresItem>>> {
-        EspressoIdlingResource.increment()
-        val data = MutableLiveData<ApiResponse<List<GenresItem>>>()
-        apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
-            override fun onResponse(
-                call: Call<GenreResponse>,
-                response: Response<GenreResponse>
-            ) {
-                data.value = ApiResponse.success(response.body()?.genres!!)
-                EspressoIdlingResource.decrement()
-            }
-
-            override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
-                EspressoIdlingResource.decrement()
-            }
-        })
-        return data
-    }
-
     fun getTvShow(callback: LoadTvShowCallback) {
         EspressoIdlingResource.increment()
         apiService.getTvShows().enqueue(object : Callback<TvShowsResponse> {
@@ -72,23 +53,6 @@ constructor(private val apiService: ApiService) {
             }
 
             override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
-                EspressoIdlingResource.decrement()
-            }
-        })
-    }
-
-    fun getGenreTvShow(callback: LoadGenreCallback) {
-        EspressoIdlingResource.increment()
-        apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
-            override fun onResponse(
-                call: Call<GenreResponse>,
-                response: Response<GenreResponse>
-            ) {
-                callback.onGenreLoaded(response.body()?.genres)
-                EspressoIdlingResource.decrement()
-            }
-
-            override fun onFailure(call: Call<GenreResponse>, t: Throwable) {
                 EspressoIdlingResource.decrement()
             }
         })
@@ -131,10 +95,6 @@ constructor(private val apiService: ApiService) {
 
     interface LoadMoviesCallback {
         fun onMoviesLoaded(movies: List<MoviesItem>?)
-    }
-
-    interface LoadGenreCallback {
-        fun onGenreLoaded(genres: List<GenresItem>?)
     }
 
     interface LoadTvShowCallback {

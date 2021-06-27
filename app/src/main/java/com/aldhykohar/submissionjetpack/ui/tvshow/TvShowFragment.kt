@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
+import androidx.recyclerview.widget.GridLayoutManager
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 import com.aldhykohar.submissionjetpack.databinding.FragmentTvshowBinding
 import com.aldhykohar.submissionjetpack.ui.tvshow.adapter.TvShowAdapter
 import com.aldhykohar.submissionjetpack.ui.tvshow.detail.DetailTvShowActivity
@@ -49,17 +48,13 @@ class TvShowFragment : Fragment(), TvShowsListener {
             setupShimmer(false)
             tvShowsAdapter.setTvShows(movies)
         })
-
-        viewModel.getTvShowGenre().observe(viewLifecycleOwner, { genres ->
-            tvShowsAdapter.setGenres(genres)
-        })
     }
 
     private fun setupUI() {
         with(binding) {
             rvTvShow.apply {
                 setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                layoutManager = GridLayoutManager(context, 2)
                 adapter = tvShowsAdapter
             }
         }
@@ -79,7 +74,7 @@ class TvShowFragment : Fragment(), TvShowsListener {
         }
     }
 
-    override fun onItemTvShowsClicked(tvShow: TvShowsItem, genre: String) {
+    override fun onItemTvShowsClicked(tvShow: TvShowsEntity) {
         val intent = Intent(context, DetailTvShowActivity::class.java)
         intent.putExtra(DetailTvShowActivity.ID_TV_SHOW, tvShow.id)
         context?.startActivity(intent)

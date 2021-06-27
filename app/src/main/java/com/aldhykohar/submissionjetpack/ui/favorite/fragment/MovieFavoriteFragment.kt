@@ -4,18 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.databinding.FragmentMovieBinding
 import com.aldhykohar.submissionjetpack.ui.favorite.FavoriteViewModel
-import com.aldhykohar.submissionjetpack.ui.movie.MovieViewModel
+import com.aldhykohar.submissionjetpack.ui.favorite.adapter.FavoriteMovieAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.MoviesListener
-import com.aldhykohar.submissionjetpack.ui.movie.adapter.MoviesAdapter
 import com.aldhykohar.submissionjetpack.ui.movie.detail.DetailMoviesActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,8 +29,8 @@ class MovieFavoriteFragment : Fragment(), MoviesListener {
         FragmentMovieBinding.inflate(layoutInflater)
     }
 
-    private val moviesAdapter: MoviesAdapter by lazy {
-        MoviesAdapter(this)
+    private val moviesAdapter: FavoriteMovieAdapter by lazy {
+        FavoriteMovieAdapter(this)
     }
 
     private val viewModel: FavoriteViewModel by viewModels()
@@ -55,21 +54,18 @@ class MovieFavoriteFragment : Fragment(), MoviesListener {
     }
 
     private fun observerViewModel() {
-        viewModel.getFavorite().observe(viewLifecycleOwner, { movies ->
+        viewModel.getFavoriteMovie().observe(viewLifecycleOwner, { movies ->
             setupShimmer(false)
-            moviesAdapter.setMovies(movies)
+            if (movies.size == 0) binding.empty.root.visibility = VISIBLE
+            moviesAdapter.submitList(movies)
         })
-
-        /*viewModel.getMoviesGenre().observe(viewLifecycleOwner, { genres ->
-            moviesAdapter.setGenres(genres)
-        })*/
     }
 
     private fun setupUI() {
         with(binding) {
             rvMovie.apply {
                 setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                layoutManager = GridLayoutManager(context, 2)
                 adapter = moviesAdapter
             }
         }
@@ -78,18 +74,18 @@ class MovieFavoriteFragment : Fragment(), MoviesListener {
     private fun setupShimmer(state: Boolean) {
         with(binding) {
             if (state) {
-                shimmer.visibility = View.VISIBLE
+                shimmer.visibility = VISIBLE
                 shimmer.startShimmer()
-                rvMovie.visibility = View.GONE
+                rvMovie.visibility = GONE
             } else {
-                shimmer.visibility = View.GONE
+                shimmer.visibility = GONE
                 shimmer.stopShimmer()
-                rvMovie.visibility = View.VISIBLE
+                rvMovie.visibility = VISIBLE
             }
         }
     }
 
-    override fun onItemMoviesClicked(movies: MovieEntity, genre: String) {
+    override fun onItemMoviesClicked(movies: MovieEntity) {
         val intent = Intent(context, DetailMoviesActivity::class.java)
         intent.putExtra(DetailMoviesActivity.ID_MOVIES, movies.id)
         context?.startActivity(intent)

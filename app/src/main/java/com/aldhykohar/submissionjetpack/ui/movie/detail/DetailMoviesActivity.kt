@@ -10,6 +10,7 @@ import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.databinding.ActivityDetailMoviesBinding
 import com.aldhykohar.submissionjetpack.utils.CommonUtils
 import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
+import com.aldhykohar.submissionjetpack.utils.CommonUtils.showToast
 import com.aldhykohar.submissionjetpack.utils.DataMapping
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +41,9 @@ class DetailMoviesActivity : AppCompatActivity() {
             ivBack.setOnClickListener { onBackPressed() }
             tvReadMore.setOnClickListener { setupReadMore() }
             fbFav.setOnClickListener {
+                if (!viewModel.isFav) showToast(getString(R.string.add_to_favorite))
+                else showToast(getString(R.string.remove_favorite))
+
                 viewModel.setFavorite(moviesItem)
             }
         }
@@ -78,6 +82,16 @@ class DetailMoviesActivity : AppCompatActivity() {
                 genre = CommonUtils.getGenres(data.genres)
                 bindImage(ivMovies, data.posterPath)
                 bindImage(ivImgBackground, data.backdropPath)
+            }
+        })
+
+        viewModel.checkFavMovie(moviesId).observe(this, { data ->
+            if (data != null) {
+                viewModel.setIsFav(true)
+                binding.fbFav.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                viewModel.setIsFav(false)
+                binding.fbFav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
         })
     }

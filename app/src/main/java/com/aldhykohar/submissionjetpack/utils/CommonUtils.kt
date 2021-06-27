@@ -27,36 +27,10 @@ object CommonUtils {
         Toast.makeText(this, message, type).show()
     }
 
-    fun getGenreMovies(listGenre: List<GenresItem>, movies: MovieEntity): String {
-        val list: ArrayList<String> = ArrayList()
-        out_loop@ for ((i, genre) in movies.genreIds.withIndex()) {
-            for (gn in listGenre) {
-                if (gn.id == genre) {
-                    if (i == 3) break@out_loop
-                    list.add(gn.name)
-                }
-            }
-        }
-        return list.joinToString(separator = ", ")
-    }
-
     fun getGenres(listGenre: List<GenresItem>): String {
         val list: ArrayList<String> = ArrayList()
         for (gn in listGenre) {
             list.add(gn.name)
-        }
-        return list.joinToString(separator = ", ")
-    }
-
-    fun getGenreTvShow(listGenre: List<GenresItem>, tvShow: TvShowsItem): String {
-        val list: ArrayList<String> = ArrayList()
-        out_loop@ for ((i, genre) in tvShow.genreIds.withIndex()) {
-            for (gn in listGenre) {
-                if (gn.id == genre) {
-                    if (i == 3) break@out_loop
-                    list.add(gn.name)
-                }
-            }
         }
         return list.joinToString(separator = ", ")
     }

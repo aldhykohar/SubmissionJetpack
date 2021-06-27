@@ -12,6 +12,5 @@ class TvShowViewModel
 @ViewModelInject
 constructor(private val repository: DataRepository) : ViewModel() {
     fun getTvShows() = repository.getTvShows()
-    fun getTvShowGenre() = repository.getGenreTvShow()
 
 }

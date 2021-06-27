@@ -1,6 +1,7 @@
 package com.aldhykohar.submissionjetpack.ui.movie.detail
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
@@ -13,14 +14,29 @@ import kotlinx.coroutines.launch
  */
 class DetailMovieViewModel
 @ViewModelInject
-constructor(private val repository: DataRepository) : ViewModel() {
+constructor(
+    private val repository: DataRepository
+) : ViewModel() {
+
+    var isFav = false
+
+    fun setIsFav(state: Boolean) {
+        this.isFav = state
+    }
 
     fun getDetailMovies(moviesId: Int) = repository.getDetailMovies(moviesId)
 
     fun setFavorite(movie: MovieEntity) {
         viewModelScope.launch {
-            repository.setMovieFav(movie)
+            if (!isFav) {
+                repository.setMovieFav(movie)
+            } else {
+                repository.deleteMovieFav(movie)
+            }
         }
     }
+
+    fun checkFavMovie(moviesId: Int): LiveData<MovieEntity> = repository.checkMovieFav(moviesId)
+
 
 }

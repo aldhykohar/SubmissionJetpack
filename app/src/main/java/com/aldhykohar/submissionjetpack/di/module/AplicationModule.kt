@@ -8,7 +8,6 @@ import com.aldhykohar.submissionjetpack.data.api.ApiHelperImpl
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.room.AppDao
 import com.aldhykohar.submissionjetpack.data.room.AppDatabase
-import com.aldhykohar.submissionjetpack.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

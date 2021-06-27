@@ -13,6 +13,5 @@ class MovieViewModel
 constructor(private val repository: DataRepository) : ViewModel() {
 
     fun getMovies() = repository.getMovies()
-    fun getMoviesGenre() = repository.getGenreMovies()
 
 }

@@ -1,7 +1,9 @@
-package com.aldhykohar.submissionjetpack.ui.movie.adapter
+package com.aldhykohar.submissionjetpack.ui.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.databinding.ItemMoviesBinding
@@ -12,14 +14,19 @@ import com.aldhykohar.submissionjetpack.utils.CommonUtils.bindImage
 /**
  * Created by aldhykohar on 5/11/2021.
  */
-class MoviesAdapter(var listener: MoviesListener) :
-    RecyclerView.Adapter<MoviesAdapter.ItemViewHolder>() {
-    private var listMovies = ArrayList<MovieEntity>()
+class FavoriteMovieAdapter(var listener: MoviesListener) :
+    PagedListAdapter<MovieEntity, FavoriteMovieAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
-    fun setMovies(movies: List<MovieEntity>?) {
-        if (movies == null) return
-        this.listMovies.clear()
-        this.listMovies.addAll(movies)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -32,10 +39,11 @@ class MoviesAdapter(var listener: MoviesListener) :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(listMovies[position])
+        val movies = getItem(position)
+        if (movies != null) {
+            holder.bind(movies)
+        }
     }
-
-    override fun getItemCount(): Int = listMovies.size
 
     inner class ItemViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {

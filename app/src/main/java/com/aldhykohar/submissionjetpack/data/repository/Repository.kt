@@ -2,12 +2,9 @@ package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.lifecycle.LiveData
 import com.aldhykohar.submissionjetpack.data.model.DetailEntity
-import com.aldhykohar.submissionjetpack.data.repository.local.entity.GenreEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
-import com.aldhykohar.submissionjetpack.utils.Resource
 
 
 /**
@@ -15,9 +12,7 @@ import com.aldhykohar.submissionjetpack.utils.Resource
  */
 interface Repository {
     fun getMovies(): LiveData<List<MovieEntity>>
-    fun getTvShows(): LiveData<List<TvShowsItem>>
-    fun getGenreMovies(): LiveData<Resource<List<GenreEntity>>>
-    fun getGenreTvShow(): LiveData<List<GenresItem>>
+    fun getTvShows(): LiveData<List<TvShowsEntity>>
     fun getDetailMovies(moviesId: Int): LiveData<DetailEntity>
     fun getDetailTvShow(tvShowId: Int): LiveData<DetailEntity>
 }

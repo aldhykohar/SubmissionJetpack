@@ -9,4 +9,8 @@
     <string name="ringkasan">Ringkasan</string>
     <string name="sembunyikan">Sembunyikan</string>
     <string name="favorite">Favorite</string>
+    <string name="empty">empty</string>
+    <string name="opps_im_blank">Opps.. Im blank</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="remove_favorite">Remove favorite</string>
 </resources>
