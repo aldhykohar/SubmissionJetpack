@@ -3,7 +3,7 @@ package com.aldhykohar.submissionjetpack.ui.tvshow.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.aldhykohar.submissionjetpack.data.model.DetailEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.DataRepository
 import com.aldhykohar.submissionjetpack.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify

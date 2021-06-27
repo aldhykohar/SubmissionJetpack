@@ -1,4 +1,4 @@
-package com.aldhykohar.submissionjetpack.data.model
+package com.aldhykohar.submissionjetpack.data.repository.local.entity
 
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.GenresItem
 import com.google.gson.annotations.SerializedName

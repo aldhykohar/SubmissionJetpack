@@ -1,10 +1,9 @@
 package com.aldhykohar.submissionjetpack.data.repository
 
 import androidx.lifecycle.LiveData
-import com.aldhykohar.submissionjetpack.data.model.DetailEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.tvshow.TvShowsItem
 
 
 /**

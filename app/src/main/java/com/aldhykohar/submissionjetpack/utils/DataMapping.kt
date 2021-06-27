@@ -1,9 +1,8 @@
 package com.aldhykohar.submissionjetpack.utils
 
-import com.aldhykohar.submissionjetpack.data.model.DetailEntity
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.DetailEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.TvShowsEntity
-import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.MoviesItem
 
 
 /**

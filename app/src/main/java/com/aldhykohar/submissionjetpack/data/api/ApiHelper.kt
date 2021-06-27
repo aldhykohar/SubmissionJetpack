@@ -13,9 +13,7 @@ import retrofit2.Call
  */
 interface ApiHelper {
     suspend fun getMovies(): Call<MoviesResponse>
-    suspend fun getGenreMovies(): Call<GenreResponse>
     suspend fun getTvShows(): Call<TvShowsResponse>
-    suspend fun getGenreTvShow(): Call<GenreResponse>
     suspend fun getDetailMovies(moviesId: Int): Call<DetailMovieResponse>
     suspend fun getTvShowMovies(tvShowId: Int): Call<DetailTvShowResponse>
 }

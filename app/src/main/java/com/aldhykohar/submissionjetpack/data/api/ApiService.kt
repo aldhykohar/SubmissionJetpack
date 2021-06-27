@@ -18,17 +18,9 @@ interface ApiService {
     fun getMovies(
     ): Call<MoviesResponse>
 
-    @GET("genre/movie/list")
-    fun getGenreMovies(
-    ): Call<GenreResponse>
-
     @GET("tv/popular")
     fun getTvShows(
     ): Call<TvShowsResponse>
-
-    @GET("genre/tv/list")
-    fun getGenreTvShow(
-    ): Call<GenreResponse>
 
     @GET("movie/{movieId}")
     fun getDetailMovie(

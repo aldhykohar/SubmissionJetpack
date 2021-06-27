@@ -17,9 +17,7 @@ class ApiHelperImpl
 constructor(private val apiService: ApiService) : ApiHelper {
 
     override suspend fun getMovies(): Call<MoviesResponse> = apiService.getMovies()
-    override suspend fun getGenreMovies(): Call<GenreResponse> = apiService.getGenreMovies()
     override suspend fun getTvShows(): Call<TvShowsResponse> = apiService.getTvShows()
-    override suspend fun getGenreTvShow(): Call<GenreResponse> = apiService.getGenreTvShow()
     override suspend fun getDetailMovies(moviesId: Int): Call<DetailMovieResponse> =
         apiService.getDetailMovie(moviesId)
 
