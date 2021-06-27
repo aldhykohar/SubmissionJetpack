@@ -6,12 +6,13 @@ import com.aldhykohar.submissionjetpack.data.repository.remote.ApiResponse
 import com.aldhykohar.submissionjetpack.data.repository.remote.StatusResponse
 import com.aldhykohar.submissionjetpack.utils.AppExecutors
 import com.aldhykohar.submissionjetpack.utils.Resource
+import javax.inject.Inject
 
 
 /**
  * Created by aldhykohar on 6/20/2021.
  */
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
@@ -41,7 +42,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 
-    protected abstract fun saveCallResult(data: RequestType)
+    protected abstract suspend fun saveCallResult(data: RequestType)
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
 
@@ -54,16 +55,13 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
             when (response.status) {
-                StatusResponse.SUCCESS ->
-                    mExecutors.diskIO().execute {
-                        saveCallResult(response.body)
-                        mExecutors.mainThread().execute {
-                            result.addSource(loadFromDB()) { newData ->
-                                result.value = Resource.success(newData)
-                            }
-                        }
+                StatusResponse.SUCCESS -> {
+                    saveCallResult(response.body)
+                    result.addSource(loadFromDB()) { newData ->
+                        result.value = Resource.success(newData)
                     }
-                StatusResponse.EMPTY -> mExecutors.mainThread().execute {
+                }
+                StatusResponse.EMPTY ->  {
                     result.addSource(loadFromDB()) { newData ->
                         result.value = Resource.success(newData)
                     }

@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.aldhykohar.submissionjetpack.data.repository.local.entity.GenreEntity
 import com.aldhykohar.submissionjetpack.data.repository.local.entity.MovieEntity
 
 
@@ -21,4 +22,10 @@ interface AppDao {
 
     @Query("SELECT * FROM tb_movie")
     fun getMovies(): DataSource.Factory<Int, MovieEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGenre(genre: List<GenreEntity>)
+
+    @Query("SELECT * FROM tb_genre")
+    fun getAllGenre(): LiveData<List<GenreEntity>>
 }

@@ -85,11 +85,6 @@ class AplicationModule {
     }
 
     @Provides
-    fun provideAppExecutors(appExecutors: AppExecutors): AppExecutors {
-        return appExecutors
-    }
-
-    @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(

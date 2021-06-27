@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Created by aldhykohar on 6/20/2021.
  */
-class AppExecutors @VisibleForTesting @Inject constructor(
+class AppExecutors @VisibleForTesting constructor(
     private val diskIO: Executor,
     private val networkIO: Executor,
     private val mainThread: Executor

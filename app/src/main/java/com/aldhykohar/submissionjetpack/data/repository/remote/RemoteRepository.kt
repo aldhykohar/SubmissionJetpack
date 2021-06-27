@@ -1,5 +1,7 @@
 package com.aldhykohar.submissionjetpack.data.repository.remote
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.aldhykohar.submissionjetpack.data.api.ApiService
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.*
 import com.aldhykohar.submissionjetpack.data.repository.remote.response.movie.DetailMovieResponse
@@ -21,7 +23,7 @@ import javax.inject.Inject
 class RemoteRepository
 @Inject
 constructor(private val apiService: ApiService) {
-    
+
     fun getMovies(callback: LoadMoviesCallback) {
         EspressoIdlingResource.increment()
         apiService.getMovies().enqueue(object : Callback<MoviesResponse> {
@@ -39,14 +41,15 @@ constructor(private val apiService: ApiService) {
         })
     }
 
-    fun getGenreMovie(callback: LoadGenreCallback) {
+    fun getGenreMovie(): LiveData<ApiResponse<List<GenresItem>>> {
         EspressoIdlingResource.increment()
+        val data = MutableLiveData<ApiResponse<List<GenresItem>>>()
         apiService.getGenreMovies().enqueue(object : Callback<GenreResponse> {
             override fun onResponse(
                 call: Call<GenreResponse>,
                 response: Response<GenreResponse>
             ) {
-                callback.onGenreLoaded(response.body()?.genres)
+                data.value = ApiResponse.success(response.body()?.genres!!)
                 EspressoIdlingResource.decrement()
             }
 
@@ -54,6 +57,7 @@ constructor(private val apiService: ApiService) {
                 EspressoIdlingResource.decrement()
             }
         })
+        return data
     }
 
     fun getTvShow(callback: LoadTvShowCallback) {
